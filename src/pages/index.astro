@@ -1,0 +1,179 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const allNews = await getCollection("news");
+const latestNews = allNews
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 2);
+---
+
+<Layout>
+  <div class="min-h-screen bg-gray-50 flex flex-col">
+    {/* Navigation */}
+    <header class="bg-white shadow">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+          <div class="flex">
+            <div class="flex-shrink-0 flex items-center">
+              <span class="text-xl font-bold text-indigo-600">学生社团</span>
+            </div>
+            <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+              <a
+                href="/"
+                class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >首页</a
+              >
+              <a
+                href="/history"
+                class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >发展历程</a
+              >
+              <a
+                href="/news"
+                class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >新闻推文</a
+              >
+              <a
+                href="/blogs"
+                class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >技术博客</a
+              >
+              <a
+                href="/resources"
+                class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >资源库</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    {/* Hero Section */}
+    <main class="flex-grow">
+      <div
+        class="bg-indigo-700 text-white py-16 px-4 sm:px-6 lg:px-8 text-center"
+      >
+        <h1 class="text-4xl font-extrabold sm:text-5xl md:text-6xl">
+          欢迎来到我们的开源社团
+        </h1>
+        <p class="mt-4 max-w-2xl mx-auto text-xl text-indigo-200">
+          探索科技，分享知识，共同成长。
+        </p>
+      </div>
+
+      <div
+        class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8"
+      >
+        {/* News Section */}
+        <section>
+          <div class="flex justify-between items-end mb-6">
+            <h2 class="text-2xl font-bold text-gray-900">
+              最新活动 & 赛事通知
+            </h2>
+            <a
+              href="/news"
+              class="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+              >查看全部 &rarr;</a
+            >
+          </div>
+          <div class="grid gap-4">
+            {
+              latestNews.length > 0 ? (
+                latestNews.map((item) => (
+                  <a
+                    href={`/news/${item.id}`}
+                    class="block bg-white shadow-sm border border-gray-100 rounded-lg p-5 hover:shadow-md transition-shadow"
+                  >
+                    <div class="flex gap-4">
+                      {item.data.cover && (
+                        <img
+                          src={item.data.cover}
+                          alt={item.data.title}
+                          class="w-24 h-24 object-cover rounded-md flex-shrink-0"
+                        />
+                      )}
+                      <div class="flex-1 flex flex-col justify-center">
+                        <h3 class="text-lg font-bold text-gray-900 mb-1 line-clamp-1">
+                          {item.data.title}
+                        </h3>
+                        <p class="text-gray-500 text-sm line-clamp-2">
+                          {item.data.description}
+                        </p>
+                        <time class="text-xs text-indigo-600 mt-2 font-medium">
+                          {item.data.date.toLocaleDateString("zh-CN")}
+                        </time>
+                      </div>
+                    </div>
+                  </a>
+                ))
+              ) : (
+                <p class="text-gray-500 text-sm">暂无最新动态。</p>
+              )
+            }
+          </div>
+        </section>
+
+        {/* Resources & Quick Links */}
+        <section>
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">快速指引通道</h2>
+          <div class="grid grid-cols-2 gap-4">
+            <a
+              href="/borrow"
+              class="block p-5 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100"
+            >
+              <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900">
+                硬件/书籍借用
+              </h5>
+              <p class="font-normal text-sm text-gray-700">
+                查看库存并申请借用实验室开发板和专业资料。
+              </p>
+            </a>
+            <a
+              href="/visit"
+              class="block p-5 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100"
+            >
+              <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900">
+                实验室预约参观
+              </h5>
+              <p class="font-normal text-sm text-gray-700">
+                申请来核心实验室参观与技术交流。
+              </p>
+            </a>
+            <a
+              href="https://github.com"
+              target="_blank"
+              class="block p-5 bg-gray-900 border border-gray-700 rounded-lg shadow hover:bg-gray-800 text-white"
+            >
+              <h5 class="mb-2 text-lg font-bold tracking-tight">内部资料库</h5>
+              <p class="font-normal text-sm text-gray-400">
+                访问GitHub上的共享文献和项目源码。
+              </p>
+            </a>
+            <a
+              href="/members"
+              class="block p-5 bg-indigo-50 border border-indigo-200 rounded-lg shadow hover:bg-indigo-100"
+            >
+              <h5 class="mb-2 text-lg font-bold tracking-tight text-indigo-900">
+                优秀成员风采
+              </h5>
+              <p class="font-normal text-sm text-indigo-700">
+                结识社团里的各路大佬。
+              </p>
+            </a>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    {/* Footer */}
+    <footer class="bg-white border-t border-gray-200 mt-auto">
+      <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <p class="text-center text-gray-500 text-sm">
+          © 2026 校园开源学生社团. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  </div>
+</Layout>

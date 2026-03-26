@@ -1,0 +1,56 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const newsItems = await getCollection("news");
+  return newsItems.map((item) => ({
+    params: { id: item.id },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props;
+const { Content } = await render(item);
+---
+
+<Layout>
+  <div class="min-h-screen bg-white py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto mb-8">
+      <a
+        href="/news"
+        class="text-indigo-600 hover:text-indigo-500 font-medium mb-6 inline-block"
+        >← 返回新闻列表</a
+      >
+    </div>
+
+    {
+      item.data.cover && (
+        <div class="max-w-4xl mx-auto mb-10">
+          <img
+            src={item.data.cover}
+            alt="Cover image"
+            class="w-full h-auto md:h-[450px] rounded-2xl shadow-lg object-cover"
+          />
+        </div>
+      )
+    }
+
+    <article class="max-w-3xl mx-auto prose prose-blue lg:prose-lg">
+      <div class="mb-8 not-prose text-center border-b pb-8">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">
+          {item.data.title}
+        </h1>
+        <div class="text-gray-500 text-sm">
+          发布日期: <time>{item.data.date.toLocaleDateString("zh-CN")}</time>
+        </div>
+      </div>
+
+      <div
+        class="prose-img:rounded-xl prose-img:shadow-md prose-headings:text-gray-900 prose-a:text-indigo-600"
+      >
+        <Content />
+      </div>
+    </article>
+  </div>
+</Layout>

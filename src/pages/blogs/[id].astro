@@ -1,0 +1,53 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const blogs = await getCollection("blogs");
+  return blogs.map((blog) => ({
+    params: { id: blog.id },
+    props: { blog },
+  }));
+}
+
+const { blog } = Astro.props;
+const { Content } = await render(blog);
+---
+
+<Layout>
+  <div class="min-h-screen bg-white py-12 px-4 sm:px-6 lg:px-8">
+    <article class="max-w-3xl mx-auto prose prose-indigo lg:prose-lg">
+      <div class="mb-8 not-prose">
+        <a
+          href="/blogs"
+          class="text-indigo-600 hover:text-indigo-500 font-medium mb-6 inline-block"
+          >← 返回博客列表</a
+        >
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-4">
+          {blog.data.title}
+        </h1>
+        <div class="flex items-center text-gray-500 text-sm">
+          <span>{blog.data.author || "匿名"}</span>
+          <span class="mx-2">•</span>
+          <time>{blog.data.date.toLocaleDateString("zh-CN")}</time>
+        </div>
+      </div>
+
+      {
+        blog.data.cover && (
+          <img
+            src={blog.data.cover}
+            alt="Cover image"
+            class="w-full h-auto rounded-xl shadow-sm mb-10 object-cover max-h-[400px]"
+          />
+        )
+      }
+
+      <div
+        class="prose-img:rounded-xl prose-img:shadow-md prose-a:text-indigo-600"
+      >
+        <Content />
+      </div>
+    </article>
+  </div>
+</Layout>
