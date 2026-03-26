@@ -19,7 +19,7 @@ Astro 最吸引我们的点在于它的 `Content Collections` (内容集合) 概
 
 更棒的是它完美支持图片渲染和 Tailwindcss：
 
-![Coding Image](/images/cover.jpg)
+![Coding Image](./cover.jpg)
 
 我们期待在接下来的日子里，用这套系统发布更多社团里的：
 - 优秀的个人项目展示
