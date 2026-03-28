@@ -1,0 +1,115 @@
+---
+interface Props {
+  items: Array<{
+    id: string;
+    title: string;
+    cover?: string;
+    description?: string;
+    href: string;
+  }>;
+}
+
+const { items } = Astro.props;
+---
+
+<div class="space-y-6">
+  {/* Carousel Section */}
+  <div class="relative rounded-xl overflow-hidden bg-gray-900 h-96">
+    <div class="splide featured-carousel" data-splide='{"type": "fade", "rewind": true, "autoplay": true, "interval": 5000, "pauseOnHover": true}'>
+      <div class="splide__track h-96">
+        <ul class="splide__list">
+          {items.map((item) => (
+            <li class="splide__slide relative h-96">
+              {/* Background Image */}
+              {item.cover && (
+                <img
+                  src={item.cover}
+                  alt={item.title}
+                  class="absolute inset-0 w-full h-full object-cover"
+                />
+              )}
+              
+              {/* Overlay Gradient */}
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+              
+              {/* Content at Bottom */}
+              <div class="absolute bottom-0 left-0 right-0 p-6">
+                <h3 class="text-2xl sm:text-3xl font-bold text-white line-clamp-2">
+                  {item.title}
+                </h3>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+      
+      {/* Navigation */}
+      <div class="splide__arrows absolute top-4 right-4 flex gap-2 z-20">
+        <button class="splide__arrow splide__arrow--prev w-10 h-10 bg-white/30 hover:bg-white/50 text-white rounded-full flex items-center justify-center transition-colors">
+          ←
+        </button>
+        <button class="splide__arrow splide__arrow--next w-10 h-10 bg-white/30 hover:bg-white/50 text-white rounded-full flex items-center justify-center transition-colors">
+          →
+        </button>
+      </div>
+
+      {/* Dots */}
+      <div class="splide__pagination absolute bottom-4 left-4 flex gap-2"></div>
+    </div>
+  </div>
+
+  {/* Links Section */}
+  <div class="space-y-3">
+    {items.map((item) => (
+      <a
+        href={item.href}
+        class="block group p-4 bg-white rounded-lg hover:bg-indigo-50 border border-gray-200 hover:border-indigo-300 transition-all"
+      >
+        <div class="flex items-center justify-between">
+          <h4 class="text-gray-900 font-semibold group-hover:text-indigo-600 transition-colors line-clamp-1">
+            {item.title}
+          </h4>
+          <span class="text-gray-400 group-hover:text-indigo-600 flex-shrink-0 ml-2">→</span>
+        </div>
+      </a>
+    ))}
+  </div>
+</div>
+
+<style>
+  :global(.featured-carousel .splide__pagination__page.is-active) {
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  :global(.featured-carousel .splide__pagination__page) {
+    background: rgba(255, 255, 255, 0.4);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: 0 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  :global(.featured-carousel .splide__pagination__page:hover) {
+    background: rgba(255, 255, 255, 0.7);
+  }
+</style>
+
+<script>
+  import Splide from '@splidejs/splide';
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.querySelector('.featured-carousel') as HTMLElement;
+    if (carousel && !(carousel as any).splide) {
+      new Splide(carousel, {
+        type: 'fade',
+        rewind: true,
+        autoplay: true,
+        interval: 5000,
+        pauseOnHover: true,
+        speed: 600,
+      }).mount();
+    }
+  });
+</script>

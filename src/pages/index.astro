@@ -1,175 +1,164 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
+import HeroCarousel from "../components/HeroCarousel.astro";
+import NewsFeaturedCarousel from "../components/NewsFeaturedCarousel.astro";
+import BlogLinks from "../components/BlogLinks.astro";
+import FeatureGrid from "../components/FeatureGrid.astro";
 
 const allNews = await getCollection("news");
-const latestNews = allNews
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 2);
 const allBlogs = await getCollection("blogs");
-const latestBlogs = allBlogs
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 2);
+
+// Sort by date descending
+const sortedNews = allNews.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const sortedBlogs = allBlogs.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// For featured carousel: show all news with cover
+const carouselNews = sortedNews.filter((item) => item.data.cover).map((item) => ({
+  id: item.id,
+  title: item.data.title,
+  cover: item.data.cover,
+  description: item.data.description,
+}));
+
+// For news featured section: latest 6 news
+const featuredNews = sortedNews.slice(0, 6).map((item) => ({
+  id: item.id,
+  title: item.data.title,
+  cover: item.data.cover,
+  description: item.data.description,
+  href: `/news/${item.id}`,
+}));
+
+// For blog links: latest 6 blogs
+const blogItems = sortedBlogs.slice(0, 6).map((item) => ({
+  id: item.id,
+  title: item.data.title,
+  date: item.data.date,
+  author: item.data.author,
+  href: `/blogs/${item.id}`,
+  tags: item.data.tags,
+}));
+
+// Features for the feature grid
+const features = [
+  {
+    icon: "📚",
+    title: "技术分享",
+    description: "定期分享最新技术见解和行业动态"
+  },
+  {
+    icon: "🤝",
+    title: "团队协作",
+    description: "与志同道合的伙伴共同成长进步"
+  },
+  {
+    icon: "🏆",
+    title: "比赛竞技",
+    description: "参与各类高水平竞赛展现实力"
+  },
+  {
+    icon: "💡",
+    title: "创新实践",
+    description: "把想法转化为现实的创新项目"
+  },
+  {
+    icon: "🌟",
+    title: "职业发展",
+    description: "获得业界领先企业的实习就业机会"
+  },
+];
 ---
 
-<Layout>
-  <div class="min-h-screen bg-gray-50 flex flex-col">
-    {/* Navigation */}
-    <header class="bg-white shadow">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-          <div class="flex">
-            <div class="flex-shrink-0 flex items-center">
-              <span class="text-xl font-bold text-indigo-600"
-                >Waymaker智能基座社团</span
-              >
-            </div>
-            <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-              <a
-                href="/"
-                class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                >首页</a
-              >
-              <a
-                href="/history"
-                class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                >社团文化</a
-              >
-              <a
-                href="/blogs"
-                class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                >技术博客</a
-              >
-              <a
-                href="/resources"
-                class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                >资源库</a
-              >
-            </div>
-          </div>
+<Layout title="Waymaker 智能基座社团 - 首页">
+  <div class="bg-gray-50">
+    {/* Hero Carousel */}
+    {carouselNews.length > 0 ? (
+      <HeroCarousel items={carouselNews} />
+    ) : (
+      <div class="h-96 bg-gradient-to-r from-indigo-600 to-indigo-800 text-white flex items-center justify-center">
+        <div class="text-center">
+          <h1 class="text-5xl font-bold mb-4">欢迎加入 Waymaker</h1>
+          <p class="text-xl text-indigo-200">探索科技，分享知识，共同成长</p>
         </div>
       </div>
-    </header>
+    )}
 
-    {/* Hero Section */}
-    <main class="flex-grow">
-      <div
-        class="bg-indigo-700 text-white py-16 px-4 sm:px-6 lg:px-8 text-center"
-      >
-        <h1 class="text-4xl font-extrabold sm:text-5xl md:text-6xl">欢迎</h1>
-        <p class="mt-4 max-w-2xl mx-auto text-xl text-indigo-200">
-          探索科技，分享知识，共同成长。
+    {/* Content Section */}
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      {/* Latest News and Blogs Section */}
+      <section class="mb-16">
+        {/* Section Title */}
+        <div class="mb-12">
+          <h2 class="text-4xl font-bold text-gray-900 mb-4">最新动态与资源</h2>
+          <div class="w-20 h-1 bg-indigo-600 rounded"></div>
+        </div>
+
+        {/* Two Column Layout - News Left, Blogs Right */}
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Featured News Column (Left - Takes 2 columns) */}
+          <div class="lg:col-span-2">
+            <div class="mb-6">
+              <h3 class="text-2xl font-bold text-gray-900 mb-2">中心动态</h3>
+              <div class="w-12 h-1 bg-indigo-600 rounded"></div>
+            </div>
+
+            {featuredNews.length > 0 ? (
+              <NewsFeaturedCarousel items={featuredNews} />
+            ) : (
+              <div class="text-center py-16 bg-gray-100 rounded-lg">
+                <p class="text-gray-500">暂无最新动态</p>
+              </div>
+            )}
+          </div>
+
+          {/* Blog Links Column (Right) */}
+          <div class="lg:col-span-1">
+            <div class="mb-6">
+              <h3 class="text-2xl font-bold text-gray-900 mb-2">技术博客</h3>
+              <div class="w-12 h-1 bg-indigo-600 rounded"></div>
+            </div>
+
+            {blogItems.length > 0 ? (
+              <BlogLinks items={blogItems} />
+            ) : (
+              <div class="text-center py-12 bg-gray-100 rounded-lg">
+                <p class="text-gray-500">暂无博客文章</p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* View All Links */}
+        <div class="mt-8 flex gap-4 justify-center">
+          <a
+            href="/news"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-semibold"
+          >
+            查看全部动态 <span>→</span>
+          </a>
+          <a
+            href="/blogs"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-white text-indigo-600 border border-indigo-600 rounded-lg hover:bg-indigo-50 transition-colors font-semibold"
+          >
+            查看全部博客 <span>→</span>
+          </a>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <FeatureGrid features={features} />
+
+      {/* CTA Section */}
+      <section class="mt-16 bg-gradient-to-r from-indigo-600 to-indigo-800 text-white rounded-2xl p-12 text-center">
+        <h2 class="text-3xl font-bold mb-4">加入我们的社团</h2>
+        <p class="text-lg text-indigo-100 mb-8 max-w-2xl mx-auto">
+          无论你是编程新手还是技术大牛，都能在 Waymaker 找到属于自己的舞台。让我们一起探索科技的奥秘！
         </p>
-      </div>
-
-      <div
-        class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8"
-      >
-        {/* News Section */}
-        <section>
-          <div class="flex justify-between items-end mb-6">
-            <h2 class="text-2xl font-bold text-gray-900">
-              最新活动 & 赛事通知
-            </h2>
-            <a
-              href="/news"
-              class="text-sm font-medium text-indigo-600 hover:text-indigo-500"
-              >查看全部 &rarr;</a
-            >
-          </div>
-          <div class="grid gap-4">
-            {
-              latestNews.length > 0 ? (
-                latestNews.map((item) => (
-                  <a
-                    href={`/news/${item.id}`}
-                    class="block bg-white shadow-sm border border-gray-100 rounded-lg p-5 hover:shadow-md transition-shadow"
-                  >
-                    <div class="flex gap-4">
-                      {item.data.cover && (
-                        <img
-                          src={item.data.cover}
-                          alt={item.data.title}
-                          class="w-24 h-24 object-cover rounded-md flex-shrink-0"
-                        />
-                      )}
-                      <div class="flex-1 flex flex-col justify-center">
-                        <h3 class="text-lg font-bold text-gray-900 mb-1 line-clamp-1">
-                          {item.data.title}
-                        </h3>
-                        <p class="text-gray-500 text-sm line-clamp-2">
-                          {item.data.description}
-                        </p>
-                        <time class="text-xs text-indigo-600 mt-2 font-medium">
-                          {item.data.date.toLocaleDateString("zh-CN")}
-                        </time>
-                      </div>
-                    </div>
-                  </a>
-                ))
-              ) : (
-                <p class="text-gray-500 text-sm">暂无最新动态。</p>
-              )
-            }
-          </div>
-        </section>
-
-        {/* Blog Section */}
-        <section>
-          <div class="flex justify-between items-end mb-6">
-            <h2 class="text-2xl font-bold text-gray-900">最新技术博客</h2>
-            <a
-              href="/blogs"
-              class="text-sm font-medium text-indigo-600 hover:text-indigo-500"
-              >查看全部 &rarr;</a
-            >
-          </div>
-          <div class="grid gap-4">
-            {
-              latestBlogs.length > 0 ? (
-                latestBlogs.map((item) => (
-                  <a
-                    href={`/blogs/${item.id}`}
-                    class="block bg-white shadow-sm border border-gray-100 rounded-lg p-5 hover:shadow-md transition-shadow"
-                  >
-                    <div class="flex gap-4">
-                      {item.data.cover && (
-                        <img
-                          src={item.data.cover}
-                          alt={item.data.title}
-                          class="w-24 h-24 object-cover rounded-md flex-shrink-0"
-                        />
-                      )}
-                      <div class="flex-1 flex flex-col justify-center">
-                        <h3 class="text-lg font-bold text-gray-900 mb-1 line-clamp-1">
-                          {item.data.title}
-                        </h3>
-                        <p class="text-gray-500 text-sm line-clamp-2">
-                          {item.data.description}
-                        </p>
-                        <time class="text-xs text-indigo-600 mt-2 font-medium">
-                          {item.data.date.toLocaleDateString("zh-CN")}
-                        </time>
-                      </div>
-                    </div>
-                  </a>
-                ))
-              ) : (
-                <p class="text-gray-500 text-sm">暂无博客内容。</p>
-              )
-            }
-          </div>
-        </section>
-      </div>
-    </main>
-
-    {/* Footer */}
-    <footer class="bg-white border-t border-gray-200 mt-auto">
-      <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <p class="text-center text-gray-500 text-sm">
-          © 2026 重庆大学Waymaker智能基座社团. All rights reserved.
-        </p>
-      </div>
-    </footer>
+        <button class="bg-white text-indigo-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors">
+          了解更多
+        </button>
+      </section>
+    </div>
   </div>
 </Layout>

@@ -1,0 +1,36 @@
+---
+interface Feature {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  features: Feature[];
+}
+
+const { features } = Astro.props;
+---
+
+<div class="py-12 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+      {features.map((feature) => (
+        <div class="group bg-white rounded-lg p-6 text-center hover:shadow-lg hover:scale-105 transition-all duration-300">
+          {/* Icon */}
+          <div class="mb-4 flex justify-center">
+            <div class="w-16 h-16 bg-indigo-100 rounded-lg flex items-center justify-center group-hover:bg-indigo-600 transition-colors">
+              <span class="text-3xl group-hover:text-white transition-colors">{feature.icon}</span>
+            </div>
+          </div>
+
+          {/* Title */}
+          <h3 class="font-bold text-gray-900 mb-2 text-sm">{feature.title}</h3>
+
+          {/* Description */}
+          <p class="text-gray-600 text-xs leading-relaxed">{feature.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
