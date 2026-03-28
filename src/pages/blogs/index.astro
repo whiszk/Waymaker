@@ -7,8 +7,8 @@ blogs.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <Layout>
-  <div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-4xl mx-auto">
+  <div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 flex flex-col">
+    <div class="max-w-4xl mx-auto w-full flex-grow flex flex-col">
       <div class="mb-10">
         <h1 class="text-4xl font-extrabold text-gray-900">技术博客</h1>
         <p class="mt-4 text-xl text-gray-500">
@@ -16,7 +16,7 @@ blogs.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
         </p>
       </div>
 
-      <div class="space-y-8">
+      <div class="space-y-8 flex-grow">
         {
           blogs.map((blog) => (
             <article class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex flex-col md:flex-row gap-6 hover:shadow-md transition-shadow">
