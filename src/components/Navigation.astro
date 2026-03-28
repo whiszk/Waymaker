@@ -5,10 +5,24 @@ export interface Props {
 
 const { currentPath = "/" } = Astro.props;
 
-const isActive = (href: string) => currentPath === href;
+const normalizePath = (path: string) => {
+  if (!path) return "/";
+  return path !== "/" && path.endsWith("/") ? path.slice(0, -1) : path;
+};
+
+const normalizedCurrentPath = normalizePath(currentPath);
+
+const isActive = (href: string) => {
+  const normalizedHref = normalizePath(href);
+  if (normalizedHref === "/") return normalizedCurrentPath === "/";
+  return (
+    normalizedCurrentPath === normalizedHref ||
+    normalizedCurrentPath.startsWith(`${normalizedHref}/`)
+  );
+};
 ---
 
-<header class="bg-white shadow sticky top-0 z-40">
+<header class="bg-white shadow fixed top-0 left-0 right-0 z-40">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16">
       {/* Logo */}

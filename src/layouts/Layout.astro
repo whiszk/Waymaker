@@ -9,6 +9,7 @@ interface Props {
 }
 
 const { title = "Waymaker 智能基座社团", description = "探索科技，分享知识，共同成长" } = Astro.props;
+const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -24,8 +25,8 @@ const { title = "Waymaker 智能基座社团", description = "探索科技，分
 		<title>{title}</title>
 	</head>
 	<body class="flex flex-col min-h-screen">
-		<Navigation />
-		<main class="flex-grow">
+		<Navigation currentPath={currentPath} />
+		<main class="flex-grow pt-16">
 			<slot />
 		</main>
 		<Footer />

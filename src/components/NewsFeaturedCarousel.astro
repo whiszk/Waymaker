@@ -3,6 +3,7 @@ interface Props {
   items: Array<{
     id: string;
     title: string;
+    date: Date;
     cover?: string;
     description?: string;
     href: string;
@@ -20,24 +21,26 @@ const { items } = Astro.props;
         <ul class="splide__list">
           {items.map((item) => (
             <li class="splide__slide relative h-96">
-              {/* Background Image */}
-              {item.cover && (
-                <img
-                  src={item.cover}
-                  alt={item.title}
-                  class="absolute inset-0 w-full h-full object-cover"
-                />
-              )}
-              
-              {/* Overlay Gradient */}
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-              
-              {/* Content at Bottom */}
-              <div class="absolute bottom-0 left-0 right-0 p-6">
-                <h3 class="text-2xl sm:text-3xl font-bold text-white line-clamp-2">
-                  {item.title}
-                </h3>
-              </div>
+              <a href={item.href} class="block relative h-96 cursor-pointer">
+                {/* Background Image */}
+                {item.cover && (
+                  <img
+                    src={item.cover}
+                    alt={item.title}
+                    class="absolute inset-0 w-full h-full object-cover"
+                  />
+                )}
+
+                {/* Overlay Gradient */}
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+
+                {/* Content at Bottom */}
+                <div class="absolute bottom-0 left-0 right-0 p-6">
+                  <h3 class="text-2xl sm:text-3xl font-bold text-white line-clamp-2">
+                    {item.title}
+                  </h3>
+                </div>
+              </a>
             </li>
           ))}
         </ul>
@@ -65,11 +68,15 @@ const { items } = Astro.props;
         href={item.href}
         class="block group p-4 bg-white rounded-lg hover:bg-indigo-50 border border-gray-200 hover:border-indigo-300 transition-all"
       >
-        <div class="flex items-center justify-between">
-          <h4 class="text-gray-900 font-semibold group-hover:text-indigo-600 transition-colors line-clamp-1">
+        <div class="flex items-center justify-between gap-3">
+          <h4 class="text-gray-900 font-semibold group-hover:text-indigo-600 transition-colors line-clamp-1 min-w-0 flex-1">
             {item.title}
           </h4>
-          <span class="text-gray-400 group-hover:text-indigo-600 flex-shrink-0 ml-2">→</span>
+          <div class="flex items-center flex-shrink-0 ml-2">
+            <span class="text-xs font-medium text-gray-500">
+              {item.date.toLocaleDateString("zh-CN")}
+            </span>
+          </div>
         </div>
       </a>
     ))}
