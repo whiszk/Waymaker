@@ -24,13 +24,15 @@ const isActive = (href: string) => {
 
 <header class="bg-white shadow fixed top-0 left-0 right-0 z-40">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-16">
-      {/* Logo */}
-      <a href="/" class="flex items-center gap-2">
-        <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
-          <span class="text-white font-bold">W</span>
-        </div>
-        <span class="font-bold text-gray-900 hidden sm:inline">Waymaker</span>
+    <div class="flex justify-between items-center h-20">
+      {/* Combined Logo */}
+      <a href="/" class="flex items-center min-w-0">
+        <img
+          src="/combined-logo.png"
+          alt="Waymaker 与交叉创新中心联合 Logo"
+          class="h-12 sm:h-16 w-auto max-w-[230px] sm:max-w-[460px] object-contain"
+          loading="eager"
+        />
       </a>
 
       {/* Navigation Menu */}

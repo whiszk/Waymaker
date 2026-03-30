@@ -45,6 +45,26 @@ npm install #安装依赖
 npm run dev #启动进程
 ```
 
+### 从微信公众号链接快速发布新闻
+
+如果你只有推文链接，可以直接用下面命令生成新闻文件：
+
+```bash
+npm run import:wechat -- "https://mp.weixin.qq.com/s/你的推文参数"
+```
+
+可选：指定更易读的目录 slug：
+
+```bash
+npm run import:wechat -- "https://mp.weixin.qq.com/s/你的推文参数" spring-meeting-2026
+```
+
+执行后会自动生成：
+
+- `src/content/news/<slug>/index.md`
+- 自动填充 `title/date/description/cover`
+- 自动抓取正文（如果解析失败，会保留原文链接）
+
 ---
 
 ## 成员协作
