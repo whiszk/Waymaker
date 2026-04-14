@@ -5,6 +5,8 @@ dist/
 .astro/
 .vscode/
 
+pens/
+
 # dependencies
 node_modules/
 

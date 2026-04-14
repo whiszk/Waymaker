@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
+import FilterPanel from "../../components/FilterPanel.astro";
 import { assertUniqueBlogSlugs, getBlogSlug } from "../../utils/blog";
 
 // 拿到当前的所有blog
@@ -8,54 +9,150 @@ const blogs = await getCollection("blogs");
 
 blogs.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 assertUniqueBlogSlugs(blogs);
+
+const yearOptions = Array.from(
+  new Set(blogs.map((blog) => String(blog.data.date.getFullYear()))),
+)
+  .sort((a, b) => Number(b) - Number(a))
+  .map((year) => ({ label: `${year}年`, value: year }));
+
+const tagOptions = Array.from(
+  new Set(blogs.flatMap((blog) => blog.data.tags ?? [])),
+)
+  .sort((a, b) => a.localeCompare(b, "zh-CN"))
+  .map((tag) => ({ label: tag, value: tag }));
+
+const authorOptions = Array.from(
+  new Set(blogs.map((blog) => blog.data.author || "匿名")),
+)
+  .sort((a, b) => a.localeCompare(b, "zh-CN"))
+  .map((author) => ({ label: author, value: author }));
 ---
 
 <Layout>
-  <div class="min-h-screen bg-gray-50 py-12 px-8 flex flex-col">
-    <div class="max-w-5xl mx-auto w-full flex-grow flex flex-col">
-      <div class="mb-10 border-b pb-6">
-        <h1 class="text-4xl font-extrabold text-gray-900">技术博客</h1>
+  <div
+    class="relative min-h-screen overflow-hidden bg-gradient-to-b from-[#F4FBFC] via-[#F8FAFD] to-[#F1F6FB] py-12 px-8 flex flex-col"
+  >
+    <div
+      class="pointer-events-none absolute -top-20 left-[-120px] h-[25rem] w-[25rem] rounded-full bg-[#C9EEF1] opacity-88 blur-[118px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute top-12 right-[-90px] h-[24rem] w-[24rem] rounded-full bg-[#D6E5FB] opacity-84 blur-[108px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute top-[42%] left-[18%] h-64 w-64 rounded-full bg-[#D5F4F1] opacity-78 blur-[88px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute bottom-[18%] right-[12%] h-80 w-80 rounded-full bg-[#CFEAF8] opacity-86 blur-[102px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute -bottom-24 left-[36%] h-[23rem] w-[23rem] rounded-full bg-[#DCE7FA] opacity-78 blur-[112px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute top-[26%] left-[44%] h-56 w-56 rounded-full bg-[#D7DEE8] opacity-62 blur-[86px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute bottom-[35%] left-[-80px] h-72 w-72 rounded-full bg-[#D3F2EF] opacity-76 blur-[96px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute -bottom-20 right-[34%] h-64 w-64 rounded-full bg-[#CBD6E0] opacity-56 blur-[92px]"
+    >
+    </div>
+
+    <div class="relative z-10 max-w-5xl mx-auto w-full flex-grow flex flex-col">
+      <div class="mb-10 text-center pb-6">
+        <h1 class="text-4xl font-extrabold text-gray-900">博客汇总</h1>
         <p class="mt-4 text-xl text-gray-500">
-          成员们的学习心得、技术分享与项目总结。
+          成员们的技术分享、学习心得与项目总结
         </p>
+        <div class="mt-4 w-60 h-1 bg-[#05C9C9] rounded mx-auto"></div>
       </div>
+
+      <FilterPanel
+        id="blog-filters"
+        itemSelector="[data-blog-item]"
+        groups={[
+          {
+            key: "year",
+            label: "按时间筛选",
+            options: yearOptions,
+          },
+          {
+            key: "author",
+            label: "按作者筛选",
+            options: authorOptions,
+          },
+          {
+            key: "tag",
+            label: "按标签筛选",
+            options: tagOptions,
+          },
+        ]}
+        emptyText="当前筛选条件下暂无博客。"
+      />
 
       <div class="space-y-8 flex-grow">
         {
-          blogs.map((blog) => (
-            <article class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex flex-row gap-6 hover:shadow-md transition-shadow">
-              {blog.data.cover && (
-                <div class="w-1/3 shrink-0">
-                  <img
-                    src={blog.data.cover}
-                    alt={blog.data.title}
-                    class="w-full h-48 object-cover rounded-md"
-                  />
+          blogs.map((blog) => {
+            const year = String(blog.data.date.getFullYear());
+            const tags = blog.data.tags ?? [];
+            const author = blog.data.author || "匿名";
+
+            return (
+              <article
+                data-blog-item
+                data-year={year}
+                data-author={author}
+                data-tag={tags.join(",")}
+                class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex flex-row gap-6 hover:shadow-md transition-shadow"
+              >
+                {blog.data.cover && (
+                  <div class="w-1/3 shrink-0">
+                    <img
+                      src={blog.data.cover}
+                      alt={blog.data.title}
+                      class="w-full h-48 object-cover rounded-md"
+                    />
+                  </div>
+                )}
+                <div class="flex-1 flex flex-col justify-center">
+                  <h2 class="text-2xl font-bold text-gray-900 mb-2">
+                    <a
+                      href={`/blogs/${getBlogSlug(blog)}`}
+                      class="hover:text-[#022F66] transition-colors"
+                    >
+                      {blog.data.title}
+                    </a>
+                  </h2>
+                  <p class="text-gray-600 mb-4 line-clamp-3">
+                    {blog.data.description}
+                  </p>
+                  {tags.length > 0 && (
+                    <div class="mb-4 flex flex-wrap gap-2">
+                      {tags.map((tag) => (
+                        <span class="inline-flex items-center rounded-md bg-[#E6FAFA] px-2 py-1 text-xs font-semibold text-[#028A8A]">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  <div class="flex items-center text-sm text-gray-500 mt-auto">
+                    <span class="font-medium mr-4">{author}</span>
+                    <time datetime={blog.data.date.toISOString()}>
+                      {blog.data.date.toLocaleDateString("zh-CN")}
+                    </time>
+                  </div>
                 </div>
-              )}
-              <div class="flex-1 flex flex-col justify-center">
-                <h2 class="text-2xl font-bold text-gray-900 mb-2">
-                  <a
-                    href={`/blogs/${getBlogSlug(blog)}`}
-                    class="hover:text-[#022F66] transition-colors"
-                  >
-                    {blog.data.title}
-                  </a>
-                </h2>
-                <p class="text-gray-600 mb-4 line-clamp-3">
-                  {blog.data.description}
-                </p>
-                <div class="flex items-center text-sm text-gray-500 mt-auto">
-                  <span class="font-medium mr-4">
-                    {blog.data.author || "匿名"}
-                  </span>
-                  <time datetime={blog.data.date.toISOString()}>
-                    {blog.data.date.toLocaleDateString("zh-CN")}
-                  </time>
-                </div>
-              </div>
-            </article>
-          ))
+              </article>
+            );
+          })
         }
       </div>
 

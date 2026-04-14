@@ -1,26 +1,166 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
+import FilterPanel from "../components/FilterPanel.astro";
 
 const members = await getCollection("members");
+
+const DEPARTMENT_BY_ROLE: Record<string, string[]> = {
+  社长: ["正副社长"],
+  副社长: ["正副社长"],
+  技术部: ["技术部"],
+  宣传部: ["宣传部"],
+  组织部: ["组织部"],
+  项目组: ["项目组"],
+};
+
+const departmentOrder = ["组织部", "宣传部", "技术部", "项目组", "正副社长"];
+
+const normalizedMembers = members.map((member) => {
+  const explicitDepartments = Array.isArray(member.data.department)
+    ? member.data.department
+    : member.data.department
+      ? [member.data.department]
+      : [];
+
+  const fallbackDepartments = Object.entries(DEPARTMENT_BY_ROLE).find(
+    ([keyword]) => member.data.role.includes(keyword),
+  )?.[1] ?? ["项目组"];
+
+  const departments = Array.from(
+    new Set(
+      (explicitDepartments.length > 0
+        ? explicitDepartments
+        : fallbackDepartments
+      ).filter(Boolean),
+    ),
+  );
+
+  const grade = member.data.grade ?? "2024";
+
+  return {
+    ...member,
+    meta: {
+      departments,
+      grade,
+    },
+  };
+});
+
+const gradeOptions = Array.from(
+  new Set(normalizedMembers.map((member) => member.meta.grade)),
+)
+  .sort((a, b) => Number(b) - Number(a))
+  .map((grade) => ({ label: `${grade}级`, value: grade }));
+
+const departmentOptions = departmentOrder.map((department) => ({
+  label: department,
+  value: department,
+}));
+
+const organizationChartImage = "/1zuzhi.png";
 ---
 
 <Layout>
-  <div class="min-h-screen bg-gray-50 py-12 px-8">
-    <div class="max-w-5xl mx-auto w-full">
-      <div class="mb-10 border-b pb-6">
-        <h1 class="text-4xl font-extrabold text-gray-900">优秀成员风采</h1>
-        <p class="mt-4 text-xl text-gray-500">认识我们最骄傲的核心骨干力量。</p>
+  <div
+    class="relative min-h-screen overflow-hidden bg-gradient-to-b from-[#F4FAFC] via-[#F8FBFD] to-[#EEF4FB] py-12 px-8"
+  >
+    <div
+      class="pointer-events-none absolute -top-24 right-[-80px] h-[26rem] w-[26rem] rounded-full bg-[#C8EEF2] opacity-85 blur-[120px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute top-[18%] left-[-100px] h-80 w-80 rounded-full bg-[#DCE8FB] opacity-80 blur-[105px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute top-[46%] right-[8%] h-72 w-72 rounded-full bg-[#D4F4F3] opacity-78 blur-[95px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute bottom-[10%] left-[12%] h-80 w-80 rounded-full bg-[#D4E8FF] opacity-82 blur-[110px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute -bottom-28 right-[24%] h-[24rem] w-[24rem] rounded-full bg-[#CFF1EF] opacity-76 blur-[118px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute top-[28%] right-[34%] h-60 w-60 rounded-full bg-[#D9E0E8] opacity-64 blur-[96px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute bottom-[36%] left-[40%] h-56 w-56 rounded-full bg-[#CDDDE8] opacity-58 blur-[90px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute -top-20 left-[36%] h-72 w-72 rounded-full bg-[#D6EEF8] opacity-78 blur-[106px]"
+    >
+    </div>
+
+    <div class="relative z-10 max-w-5xl mx-auto w-full">
+      <div class="mb-10 pb-6 text-center">
+        <h1 class="text-4xl font-extrabold text-gray-900">成员风采</h1>
+        <p class="mt-4 text-xl text-gray-500">认识我们的核心骨干力量</p>
+        <div class="mt-4 w-60 h-1 bg-[#05C9C9] rounded mx-auto"></div>
       </div>
 
-      <div class="space-y-8">
+      <section
+        class="mb-8 rounded-xl border border-[#D5EEEE] bg-white p-8 shadow-sm"
+      >
+        <h2 class="text-2xl font-bold text-[#022F66]">社团组织架构</h2>
+
+        <img
+          src={organizationChartImage}
+          alt="社团组织架构图"
+          class="mx-auto w-full max-w-[800px]"
+          loading="lazy"
+        />
+      </section>
+
+      <FilterPanel
+        id="member-filters"
+        itemSelector="[data-member-item]"
+        groups={[
+          {
+            key: "grade",
+            label: "按年级筛选",
+            options: gradeOptions,
+          },
+          {
+            key: "department",
+            label: "按部门筛选",
+            options: departmentOptions,
+          },
+        ]}
+        emptyText="当前筛选条件下暂无成员。"
+      />
+
+      <div class="space-y-6">
         {
-          members.map((member) => (
-            <article class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+          normalizedMembers.map((member) => (
+            <article
+              data-member-item
+              data-grade={member.meta.grade}
+              data-department={member.meta.departments.join(",")}
+              class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
+            >
               <h2 class="text-2xl font-bold text-gray-900 mb-2">
                 {member.data.name}
               </h2>
-              <p class="text-[#022F66] font-medium mb-4">{member.data.role}</p>
+              <div class="mb-4 flex items-center gap-2">
+                <span class="inline-flex items-center rounded-md bg-[#E6FAFA] px-2 py-1 text-xs font-semibold text-[#028A8A]">
+                  {member.meta.grade}级
+                </span>
+                {member.meta.departments.map((department) => (
+                  <span class="inline-flex items-center rounded-md bg-[#E9EEF6] px-2 py-1 text-xs font-semibold text-[#022F66]">
+                    {department}
+                  </span>
+                ))}
+                <span class="text-[#022F66] font-medium">
+                  {member.data.role}
+                </span>
+              </div>
               <p class="text-gray-600 leading-7">{member.data.bio}</p>
             </article>
           ))

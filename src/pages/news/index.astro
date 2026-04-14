@@ -1,33 +1,114 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
+import FilterPanel from "../../components/FilterPanel.astro";
 
 const newsItems = await getCollection("news");
 newsItems.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const yearOptions = Array.from(
+  new Set(newsItems.map((item) => String(item.data.date.getFullYear()))),
+)
+  .sort((a, b) => Number(b) - Number(a))
+  .map((year) => ({ label: `${year}年`, value: year }));
 
 const getCoverSrc = (cover: string | { src: string } | undefined) =>
   typeof cover === "string" ? cover : cover?.src;
 ---
 
 <Layout>
-  <div class="min-h-screen bg-gray-50 py-12 px-8 flex flex-col">
-    <div class="max-w-5xl mx-auto w-full flex-grow flex flex-col">
-      <div class="mb-10 border-b pb-6">
+  <div
+    class="relative min-h-screen overflow-hidden bg-gradient-to-b from-[#F6FCFD] via-[#F8FBFD] to-[#F2F7FB] py-12 px-8 flex flex-col"
+  >
+    <div
+      class="pointer-events-none absolute -top-20 -left-16 h-96 w-96 rounded-full bg-[#CFF3F3] opacity-85 blur-[110px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute top-20 right-[-110px] h-[28rem] w-[28rem] rounded-full bg-[#DDE8FB] opacity-84 blur-[120px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute bottom-[-170px] left-[28%] h-96 w-96 rounded-full bg-[#D8F8F8] opacity-75 blur-[115px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute top-[34%] left-[-80px] h-72 w-72 rounded-full bg-[#E8F1FD] opacity-79 blur-[95px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute top-[46%] right-[18%] h-64 w-64 rounded-full bg-[#E0FAFA] opacity-80 blur-[85px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute bottom-[-70px] right-[-20px] h-80 w-80 rounded-full bg-[#E8ECFA] opacity-79 blur-[105px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute top-[-60px] left-[38%] h-72 w-72 rounded-full bg-[#D6EEF8] opacity-75 blur-[100px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute top-[22%] right-[34%] h-56 w-56 rounded-full bg-[#CFEFF3] opacity-74 blur-[85px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute bottom-[20%] left-[8%] h-72 w-72 rounded-full bg-[#DDEEFF] opacity-80 blur-[95px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute bottom-[-130px] right-[30%] h-[22rem] w-[22rem] rounded-full bg-[#D7F6F2] opacity-75 blur-[110px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute top-[10%] left-[30%] h-60 w-60 rounded-full bg-[#D5DEE9] opacity-62 blur-[92px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute top-[58%] right-[40%] h-64 w-64 rounded-full bg-[#D2DCE7] opacity-58 blur-[96px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute bottom-[8%] left-[-70px] h-72 w-72 rounded-full bg-[#CFEFED] opacity-78 blur-[102px]"
+    >
+    </div>
+
+    <div class="relative z-10 max-w-5xl mx-auto w-full flex-grow flex flex-col">
+      <div class="mb-10 text-center pb-6">
         <h1 class="text-4xl font-extrabold text-gray-900">
-          新闻推文 & 赛事通知
+          活动推文 & 赛事通知
         </h1>
         <p class="mt-4 text-xl text-gray-500">
-          掌握社团最新动态和校园开源咨询。
+          掌握社团活动与各项赛事的最新动态
         </p>
+        <div class="mt-4 w-60 h-1 bg-[#05C9C9] rounded mx-auto"></div>
       </div>
+
+      <FilterPanel
+        id="news-filters"
+        itemSelector="[data-news-item]"
+        groups={[
+          {
+            key: "year",
+            label: "按时间筛选",
+            options: yearOptions,
+          },
+        ]}
+        emptyText="当前时间条件下暂无新闻内容。"
+      />
 
       <div class="grid grid-cols-3 gap-8 flex-grow content-start">
         {
           newsItems.map((item) => {
             const coverSrc = getCoverSrc(item.data.cover);
+            const year = String(item.data.date.getFullYear());
 
             return (
-              <article class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all flex flex-col">
+              <article
+                data-news-item
+                data-year={year}
+                class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all flex flex-col"
+              >
                 {coverSrc ? (
                   <a
                     href={`/news/${item.id}`}
@@ -53,17 +134,9 @@ const getCoverSrc = (cover: string | { src: string } | undefined) =>
                       {item.data.title}
                     </a>
                   </h2>
-                  <p class="text-gray-600 text-sm mb-4 line-clamp-3 flex-1">
+                  <p class="text-gray-600 text-sm line-clamp-3 flex-1">
                     {item.data.description}
                   </p>
-                  <div class="mt-auto pt-4 border-t border-gray-100">
-                    <a
-                      href={`/news/${item.id}`}
-                      class="text-[#022F66] hover:text-[#011D3F] text-sm font-medium flex items-center"
-                    >
-                      阅读全文 <span class="ml-1">→</span>
-                    </a>
-                  </div>
                 </div>
               </article>
             );

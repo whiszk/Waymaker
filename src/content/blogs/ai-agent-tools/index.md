@@ -3,8 +3,8 @@ slug: "ai-agent-tools"
 title: "个人常用的 AI Agent 工具分享"
 date: 2026-03-30
 author: "唐锐"
-description: "总结 Gemini、VS Code Copilot、Claude Code、Codex 等常用 AI 及 Agent 工具的优缺点与使用建议。"
-tags: ["AI Agent", "效率工具", "开发"]
+description: "关于 Gemini、VS Code Copilot、Claude Code、Codex 等常用 AI 及 Agent 工具的个人体验优缺点与使用建议。"
+tags: ["AI", "工具"]
 ---
 
 ## web端chat

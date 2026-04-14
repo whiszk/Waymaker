@@ -69,7 +69,7 @@
               "type": "frame",
               "id": "XX6ED",
               "x": 32,
-              "y": 202,
+              "y": 420,
               "name": "contentRow",
               "width": "fill_container(1280)",
               "gap": 24,
@@ -464,7 +464,7 @@
               "type": "text",
               "id": "Mw7rY",
               "x": 32,
-              "y": 940,
+              "y": 1168,
               "name": "backHome",
               "fill": "#022F66",
               "content": "← 返回首页",
@@ -481,6 +481,207 @@
               "fill": "#E6FAFA",
               "width": 280,
               "height": 280
+            },
+            {
+              "type": "frame",
+              "id": "iW4V2",
+              "x": 32,
+              "y": 202,
+              "name": "featureSection",
+              "width": 1376,
+              "fill": "#F8FAFC",
+              "cornerRadius": 12,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#D5EEEE"
+              },
+              "layout": "vertical",
+              "gap": 12,
+              "padding": [
+                20,
+                24
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "mJmRh",
+                  "name": "featureTitle",
+                  "fill": "#022F66",
+                  "content": "Feature 区块（从首页迁移）",
+                  "fontFamily": "Inter",
+                  "fontSize": 28,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "57fgr",
+                  "name": "featureList",
+                  "fill": "#475569",
+                  "content": "📚 技术分享：定期分享最新技术见解和行业动态\n🤝 团队协作：与志同道合伙伴共同成长\n🏆 比赛竞技：参与高水平赛事实践\n💡 创新实践：把想法转化为真实项目\n🌟 职业发展：连接实习与就业机会",
+                  "fontFamily": "Inter",
+                  "fontSize": 16,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "8VPFJ",
+      "x": 1520,
+      "y": 0,
+      "name": "Home Quick Links (Synced)",
+      "width": 1280,
+      "height": 420,
+      "fill": "#F3FAFA",
+      "cornerRadius": 16,
+      "stroke": {
+        "thickness": 1,
+        "fill": "#D5EEEE"
+      },
+      "layout": "vertical",
+      "gap": 20,
+      "padding": 32,
+      "children": [
+        {
+          "type": "text",
+          "id": "p4e37",
+          "name": "homeQuickLinksTitle",
+          "fill": "#022F66",
+          "content": "首页：最新动态下方四按钮",
+          "fontFamily": "Inter",
+          "fontSize": 42,
+          "fontWeight": "800"
+        },
+        {
+          "type": "frame",
+          "id": "OfPms",
+          "name": "quickLinksRow",
+          "width": "fill_container",
+          "gap": 16,
+          "children": [
+            {
+              "type": "frame",
+              "id": "5RYay",
+              "name": "btnNews",
+              "width": 286,
+              "fill": "#FFFFFF",
+              "cornerRadius": 10,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#022F66"
+              },
+              "gap": 6,
+              "padding": [
+                10,
+                16
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "i1uM2",
+                  "name": "btnNewsText",
+                  "fill": "#022F66",
+                  "content": "查看全部动态 →",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "qutdw",
+              "name": "btnBlogs",
+              "width": 286,
+              "fill": "#FFFFFF",
+              "cornerRadius": 10,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#022F66"
+              },
+              "gap": 6,
+              "padding": [
+                10,
+                16
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "61O5d",
+                  "name": "btnBlogsText",
+                  "fill": "#022F66",
+                  "content": "查看全部博客 →",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "QVu3e",
+              "name": "btnMembers",
+              "width": 286,
+              "fill": "#FFFFFF",
+              "cornerRadius": 10,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#022F66"
+              },
+              "gap": 6,
+              "padding": [
+                10,
+                16
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Rtcos",
+                  "name": "btnMembersText",
+                  "fill": "#022F66",
+                  "content": "成员风采 →",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "EyVA5",
+              "name": "btnRecruit",
+              "width": 286,
+              "fill": "#05C9C9",
+              "cornerRadius": 10,
+              "gap": 6,
+              "padding": [
+                10,
+                16
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "FxP3P",
+                  "name": "btnRecruitText",
+                  "fill": "#FFFFFF",
+                  "content": "加入我们 →",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "600"
+                }
+              ]
             }
           ]
         }

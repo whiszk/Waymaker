@@ -1,0 +1,179 @@
+---
+interface FilterOption {
+    label: string;
+    value: string;
+}
+
+interface FilterGroup {
+    key: string;
+    label: string;
+    options: FilterOption[];
+}
+
+interface Props {
+    id: string;
+    groups: FilterGroup[];
+    itemSelector: string;
+    emptyText?: string;
+}
+
+const {
+    id,
+    groups,
+    itemSelector,
+    emptyText = "暂无符合筛选条件的内容。",
+} = Astro.props;
+---
+
+<section
+    id={id}
+    data-filter-panel="true"
+    data-item-selector={itemSelector}
+    class="mb-8 rounded-xl border border-[#D5EEEE] bg-white p-6 shadow-sm"
+>
+    <div class="space-y-5">
+        {
+            groups.map((group) => (
+                <div
+                    class="flex items-start gap-4"
+                    data-filter-group={group.key}
+                >
+                    <h3 class="w-28 shrink-0 pt-2 text-sm font-semibold text-[#022F66]">
+                        {group.label}
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <button
+                            type="button"
+                            data-filter-value="all"
+                            class="rounded-md border border-[#05C9C9] bg-[#05C9C9] px-3 py-1.5 text-sm font-medium text-white transition-colors"
+                        >
+                            全部
+                        </button>
+                        {group.options.map((option) => (
+                            <button
+                                type="button"
+                                data-filter-value={option.value}
+                                class="rounded-md border border-[#C9D8E6] bg-white px-3 py-1.5 text-sm font-medium text-[#022F66] transition-colors hover:bg-[#E6FAFA]"
+                            >
+                                {option.label}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+
+    <p id={`${id}-empty`} class="mt-5 hidden text-sm text-[#64748B]">
+        {emptyText}
+    </p>
+</section>
+
+<script>
+    const ACTIVE_CLASSES = ["border-[#05C9C9]", "bg-[#05C9C9]", "text-white"];
+    const INACTIVE_CLASSES = ["border-[#C9D8E6]", "bg-white", "text-[#022F66]"];
+
+    const getTokens = (rawValue: string): string[] =>
+        (rawValue || "")
+            .split(",")
+            .map((item: string) => item.trim().toLowerCase())
+            .filter(Boolean);
+
+    const setupFilterPanel = (panel: HTMLElement): void => {
+        if (!panel || panel.dataset.bound === "true") return;
+
+        panel.dataset.bound = "true";
+        const itemSelector = panel.dataset.itemSelector;
+        if (!itemSelector) return;
+
+        const items = Array.from(
+            document.querySelectorAll<HTMLElement>(itemSelector),
+        );
+        const emptyHint = panel.querySelector<HTMLParagraphElement>(
+            `#${panel.id}-empty`,
+        );
+        const groupBlocks = Array.from(
+            panel.querySelectorAll<HTMLElement>("[data-filter-group]"),
+        );
+        const state: Record<string, string> = {};
+
+        const setButtonStyle = (
+            button: HTMLButtonElement,
+            isActive: boolean,
+        ): void => {
+            if (isActive) {
+                button.classList.remove(...INACTIVE_CLASSES);
+                button.classList.add(...ACTIVE_CLASSES);
+            } else {
+                button.classList.remove(...ACTIVE_CLASSES);
+                button.classList.add(...INACTIVE_CLASSES);
+            }
+        };
+
+        const applyFilters = (): void => {
+            let visibleCount = 0;
+
+            items.forEach((item) => {
+                const visible = Object.entries(state).every(
+                    ([key, selectedValue]) => {
+                        if (selectedValue === "all") return true;
+
+                        const itemValue =
+                            item.getAttribute(`data-${key}`) || "";
+                        const tokens = getTokens(itemValue);
+                        return tokens.includes(
+                            String(selectedValue).toLowerCase(),
+                        );
+                    },
+                );
+
+                item.classList.toggle("hidden", !visible);
+                if (visible) visibleCount += 1;
+            });
+
+            if (emptyHint) {
+                emptyHint.classList.toggle("hidden", visibleCount !== 0);
+            }
+        };
+
+        groupBlocks.forEach((group) => {
+            const key = group.getAttribute("data-filter-group");
+            if (!key) return;
+
+            state[key] = "all";
+            const buttons = Array.from(
+                group.querySelectorAll<HTMLButtonElement>(
+                    "button[data-filter-value]",
+                ),
+            );
+
+            buttons.forEach((button) => {
+                button.addEventListener("click", () => {
+                    state[key] =
+                        button.getAttribute("data-filter-value") || "all";
+
+                    buttons.forEach((target) => {
+                        setButtonStyle(target, target === button);
+                    });
+
+                    applyFilters();
+                });
+            });
+        });
+
+        applyFilters();
+    };
+
+    const init = (): void => {
+        const panels = document.querySelectorAll<HTMLElement>(
+            "section[data-filter-panel='true']",
+        );
+        panels.forEach((panel) => setupFilterPanel(panel));
+    };
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init, { once: true });
+    } else {
+        init();
+    }
+</script>

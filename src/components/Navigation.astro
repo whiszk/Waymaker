@@ -26,13 +26,18 @@ const isActive = (href: string) => {
   <div class="max-w-7xl mx-auto px-8">
     <div class="flex justify-between items-center h-20">
       {/* Combined Logo */}
-      <a href="/" class="flex items-center min-w-0">
+      <a href="/" class="flex items-center min-w-0 gap-6">
         <img
           src="/combined-logo.png"
           alt="Waymaker 与交叉创新中心联合 Logo"
-          class="h-16 w-auto max-w-[460px] object-contain"
+          class="h-14 w-auto max-w-[340px] object-contain"
           loading="eager"
         />
+        <span
+          class="text-[24px] font-black tracking-[0em] text-black leading-tight whitespace-nowrap font-['PingFang_SC','Helvetica_Neue','Microsoft_YaHei','sans-serif']"
+        >
+          重庆大学 Waymaker 智能基座社团
+        </span>
       </a>
 
       {/* Navigation Menu */}
@@ -48,15 +53,16 @@ const isActive = (href: string) => {
           首页
         </a>
         <a
-          href="/members"
+          href="/news"
           class={`text-sm font-medium transition-colors ${
-            isActive("/members")
+            isActive("/news")
               ? "text-[#022F66] border-b-2 border-[#05C9C9]"
               : "text-gray-600 hover:text-[#022F66]"
           }`}
         >
-          成员
+          新闻
         </a>
+
         <a
           href="/blogs"
           class={`text-sm font-medium transition-colors ${
@@ -68,14 +74,14 @@ const isActive = (href: string) => {
           博客
         </a>
         <a
-          href="/news"
+          href="/members"
           class={`text-sm font-medium transition-colors ${
-            isActive("/news")
+            isActive("/members")
               ? "text-[#022F66] border-b-2 border-[#05C9C9]"
               : "text-gray-600 hover:text-[#022F66]"
           }`}
         >
-          新闻
+          成员
         </a>
         <a
           href="/recruitment"

@@ -1,12 +1,16 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
+const memberDepartment = z.enum(["组织部", "宣传部", "技术部", "项目组", "正副社长"]);
+
 // 从 src/content/members 目录读取所有 .json
 const members = defineCollection({
   loader: glob({ pattern: "**/*.json", base: "./src/content/members" }),
   schema: z.object({
     name: z.string(),
     role: z.string(),
+    grade: z.string().regex(/^\d{4}$/).optional(),
+    department: z.union([memberDepartment, z.array(memberDepartment).min(1)]).optional(),
     bio: z.string().optional(), // 个人简介 / 个人介绍
   }),
 });

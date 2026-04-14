@@ -1,102 +1,124 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import DownloadFileList from "../components/DownloadFileList.astro";
+import FeatureGrid from "../components/FeatureGrid.astro";
 
 const authUrl = "https://edu.hicomputing.huawei.com/AIeducationbase";
 
 const notices = [
     {
         title: "重庆大学智能基座社团纳新报名表",
-        date: "2026-03-28",
-        tag: "DOCX",
-        actionLabel: "立即下载",
         href: "/docs/recruitment-form.docx",
     },
     {
         title: "智能基座协会26春季纳新说明",
-        date: "2026-03-28",
-        tag: "DOCX",
-        actionLabel: "立即下载",
         href: "/docs/recruitment-guide.docx",
     },
 ];
 ---
 
 <Layout title="Waymaker 招新专区">
-    <div class="min-h-screen bg-gray-50 py-12 px-8 flex flex-col">
-        <div class="max-w-5xl mx-auto w-full flex-grow flex flex-col">
-            <div class="mb-10 border-b pb-6">
+    <div
+        class="relative min-h-screen overflow-hidden bg-gradient-to-b from-[#F5FCFB] via-[#F8FBFC] to-[#EEF6FB] py-12 px-8 flex flex-col"
+    >
+        <div
+            class="pointer-events-none absolute -top-16 left-[8%] h-80 w-80 rounded-full bg-[#C8EFEB] opacity-88 blur-[108px]"
+        >
+        </div>
+        <div
+            class="pointer-events-none absolute top-[16%] right-[-88px] h-[25rem] w-[25rem] rounded-full bg-[#D7E6FC] opacity-86 blur-[114px]"
+        >
+        </div>
+        <div
+            class="pointer-events-none absolute top-[45%] left-[-90px] h-72 w-72 rounded-full bg-[#D7F6F1] opacity-78 blur-[96px]"
+        >
+        </div>
+        <div
+            class="pointer-events-none absolute bottom-[18%] right-[24%] h-64 w-64 rounded-full bg-[#D4ECF8] opacity-84 blur-[90px]"
+        >
+        </div>
+        <div
+            class="pointer-events-none absolute -bottom-28 left-[34%] h-[24rem] w-[24rem] rounded-full bg-[#D9E7FD] opacity-76 blur-[118px]"
+        >
+        </div>
+        <div
+            class="pointer-events-none absolute top-[32%] left-[38%] h-56 w-56 rounded-full bg-[#D6DDE7] opacity-62 blur-[90px]"
+        >
+        </div>
+        <div
+            class="pointer-events-none absolute bottom-[36%] left-[-84px] h-72 w-72 rounded-full bg-[#CFEEEA] opacity-78 blur-[98px]"
+        >
+        </div>
+        <div
+            class="pointer-events-none absolute bottom-[6%] right-[8%] h-72 w-72 rounded-full bg-[#CCD7E1] opacity-56 blur-[96px]"
+        >
+        </div>
+
+        <div
+            class="relative z-10 max-w-5xl mx-auto w-full flex-grow flex flex-col"
+        >
+            <div class="mb-0 pb-6 text-center">
                 <h1 class="text-4xl font-extrabold text-gray-900">招新专区</h1>
                 <p class="mt-4 text-xl text-gray-500">
-                    Waymaker
-                    智能基座社团面向全校同学长期开放，欢迎加入我们一起做技术分享、项目实践与赛事创新。
+                    Waymaker 智能基座社团期待您的加入
                 </p>
+                <div class="mt-4 w-60 h-1 bg-[#05C9C9] rounded mx-auto"></div>
             </div>
 
-            <section
-                class="mb-8 bg-white rounded-xl border border-[#D5EEEE] p-6 shadow-sm"
+            <div class="mb-5 rounded-xl overflow-hidden">
+                <FeatureGrid
+                    features={[
+                        {
+                            icon: "📚",
+                            title: "技术分享",
+                            description: "定期分享最新技术见解和行业动态",
+                        },
+                        {
+                            icon: "🤝",
+                            title: "团队协作",
+                            description: "与志同道合的伙伴共同成长进步",
+                        },
+                        {
+                            icon: "🏆",
+                            title: "比赛竞技",
+                            description: "参与各类高水平竞赛展现实力",
+                        },
+                        {
+                            icon: "💡",
+                            title: "创新实践",
+                            description: "把想法转化为现实的创新项目",
+                        },
+                        {
+                            icon: "🌟",
+                            title: "职业发展",
+                            description: "获得业界领先企业的实习就业机会",
+                        },
+                    ]}
+                />
+            </div>
+
+            <div
+                class="grid grid-cols-2 gap-8 flex-grow content-start items-stretch"
             >
-                <div class="text-center">
-                    <h2 class="text-2xl font-bold text-[#022F66]">常用入口</h2>
-                    <p class="mt-2 text-[#475569] text-sm">
-                        将原首页的四个常用入口迁移到招新页，便于一站式跳转。
-                    </p>
-                </div>
-
-                <div class="mt-5 grid grid-cols-4 gap-4">
-                    <a
-                        href="/news"
-                        class="inline-flex items-center justify-center gap-2 px-4 py-3 bg-white text-[#022F66] border border-[#022F66] rounded-lg hover:bg-[#E6FAFA] transition-colors font-semibold"
-                    >
-                        查看全部动态 <span>→</span>
-                    </a>
-                    <a
-                        href="/blogs"
-                        class="inline-flex items-center justify-center gap-2 px-4 py-3 bg-white text-[#022F66] border border-[#022F66] rounded-lg hover:bg-[#E6FAFA] transition-colors font-semibold"
-                    >
-                        查看全部博客 <span>→</span>
-                    </a>
-                    <a
-                        href="/members"
-                        class="inline-flex items-center justify-center gap-2 px-4 py-3 bg-white text-[#022F66] border border-[#022F66] rounded-lg hover:bg-[#E6FAFA] transition-colors font-semibold"
-                    >
-                        成员风采 <span>→</span>
-                    </a>
-                    <a
-                        href="/recruitment"
-                        aria-current="page"
-                        class="inline-flex items-center justify-center gap-2 px-4 py-3 bg-[#05C9C9] text-white rounded-lg hover:bg-[#03A8A8] transition-colors font-semibold"
-                    >
-                        加入我们 <span>→</span>
-                    </a>
-                </div>
-            </section>
-
-            <div class="grid grid-cols-2 gap-8 flex-grow content-start">
                 <section
-                    class="bg-white rounded-xl border border-[#D5EEEE] p-6 shadow-sm"
+                    class="h-full bg-white rounded-xl border border-[#D5EEEE] p-6 shadow-sm flex flex-col"
                 >
                     <h2 class="text-2xl font-bold text-[#022F66]">社团官Q</h2>
                     <p class="mt-2 text-[#475569] text-sm leading-6">
-                        扫码进入纳新咨询群，获取最新活动和答疑通知。
+                        扫码申请加入社团成员群，与我们取得联系
                     </p>
 
-                    <div class="mt-6 flex justify-center">
+                    <div class="mt-6 flex-1 flex items-center justify-center">
                         <img
                             src="/QR%20code.jpg"
                             alt="社团纳新Q群二维码"
-                            class="w-full max-w-md rounded-lg border border-[#D5EEEE] shadow"
+                            class="w-[72%] max-w-[220px] min-w-[160px] rounded-lg border border-[#D5EEEE] shadow object-contain"
                         />
                     </div>
                 </section>
 
-                <div class="space-y-6">
-                    <DownloadFileList
-                        title="资料下载"
-                        description="后续招新手册、通知附件都会统一放在这里。"
-                        helperText="新增文件时，沿用同一条目结构：标签 + 标题 + 更新时间 + 操作。"
-                        items={notices}
-                    />
+                <div class="h-full flex flex-col justify-between gap-10">
+                    <DownloadFileList title="招新资料下载" items={notices} />
 
                     <section
                         class="bg-white rounded-xl border border-[#D5EEEE] p-6 shadow-sm"
@@ -104,9 +126,7 @@ const notices = [
                         <h2 class="text-2xl font-bold text-[#022F66]">
                             成员认证入口
                         </h2>
-                        <p class="mt-2 text-[#475569] text-sm leading-6">
-                            统一跳转至鲲鹏与昇腾教育科研平台完成成员认证。
-                        </p>
+
                         <div class="mt-5">
                             <a
                                 href={authUrl}

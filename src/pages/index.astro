@@ -49,6 +49,27 @@ const blogItems = sortedBlogs.slice(0, 6).map((item) => ({
       class="pointer-events-none absolute inset-0 [background:radial-gradient(ellipse_at_top_right,rgba(5,201,201,0.12),transparent_45%),radial-gradient(ellipse_at_bottom_left,rgba(2,47,102,0.10),transparent_45%)]"
     >
     </div>
+    <div
+      class="pointer-events-none absolute -top-24 -left-24 h-[24rem] w-[24rem] rounded-full bg-[#CDEFF1] opacity-82 blur-[118px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute top-[18%] right-[-90px] h-[22rem] w-[22rem] rounded-full bg-[#D4E5FA] opacity-78 blur-[102px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute top-[44%] left-[8%] h-72 w-72 rounded-full bg-[#D8DDE7] opacity-60 blur-[92px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute bottom-[10%] right-[16%] h-80 w-80 rounded-full bg-[#D2EEF0] opacity-76 blur-[106px]"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute -bottom-24 left-[34%] h-[23rem] w-[23rem] rounded-full bg-[#CED8E2] opacity-54 blur-[112px]"
+    >
+    </div>
+
     <div class="relative max-w-7xl mx-auto px-8 py-14 space-y-14">
       <section
         class="relative rounded-2xl border border-[#D5EEEE] bg-white p-10 overflow-hidden shadow-[0_18px_45px_rgba(2,47,102,0.08)]"
@@ -66,9 +87,9 @@ const blogItems = sortedBlogs.slice(0, 6).map((item) => ({
           <div class="text-center">
             <h2 class="text-4xl font-extrabold text-[#022F66]">最新动态</h2>
             <p class="mt-4 text-lg text-[#475569]">
-              聚焦社团新闻、赛事通知与技术活动现场。
+              聚焦社团新闻、赛事通知与技术活动现场
             </p>
-            <div class="mt-4 w-20 h-1 bg-[#05C9C9] rounded mx-auto"></div>
+            <div class="mt-4 w-60 h-1 bg-[#05C9C9] rounded mx-auto"></div>
           </div>
 
           <div class="mt-10 max-w-5xl mx-auto">
@@ -86,24 +107,37 @@ const blogItems = sortedBlogs.slice(0, 6).map((item) => ({
       </section>
 
       <section
-        class="bg-white rounded-2xl border border-[#D5EEEE] p-10 shadow-[0_14px_38px_rgba(2,47,102,0.07)]"
+        class="bg-white rounded-2xl border border-[#D5EEEE] p-8 shadow-[0_14px_38px_rgba(2,47,102,0.07)]"
       >
-        <div class="mb-8 border-b border-[#D5EEEE] pb-6">
-          <h2 class="text-4xl font-extrabold text-[#022F66]">技术博客</h2>
-          <p class="mt-4 text-xl text-[#475569]">
-            成员们的学习心得、技术分享与项目总结。
-          </p>
+        <div class="text-center mb-6">
+          <h2 class="text-3xl font-bold text-[#022F66]">常用入口</h2>
         </div>
-
-        {
-          blogItems.length > 0 ? (
-            <BlogLinks items={blogItems} />
-          ) : (
-            <div class="text-center py-12 bg-gray-100 rounded-lg">
-              <p class="text-gray-500">暂无博客文章</p>
-            </div>
-          )
-        }
+        <div class="grid grid-cols-4 gap-4">
+          <a
+            href="/news"
+            class="inline-flex items-center justify-center gap-2 px-4 py-3 bg-white text-[#022F66] border border-[#022F66] rounded-lg hover:bg-[#E6FAFA] transition-colors font-semibold"
+          >
+            查看全部动态 <span>→</span>
+          </a>
+          <a
+            href="/blogs"
+            class="inline-flex items-center justify-center gap-2 px-4 py-3 bg-white text-[#022F66] border border-[#022F66] rounded-lg hover:bg-[#E6FAFA] transition-colors font-semibold"
+          >
+            查看全部博客 <span>→</span>
+          </a>
+          <a
+            href="/members"
+            class="inline-flex items-center justify-center gap-2 px-4 py-3 bg-white text-[#022F66] border border-[#022F66] rounded-lg hover:bg-[#E6FAFA] transition-colors font-semibold"
+          >
+            成员风采 <span>→</span>
+          </a>
+          <a
+            href="/recruitment"
+            class="inline-flex items-center justify-center gap-2 px-4 py-3 bg-[#05C9C9] text-white rounded-lg hover:bg-[#03A8A8] transition-colors font-semibold"
+          >
+            加入我们 <span>→</span>
+          </a>
+        </div>
       </section>
     </div>
   </div>

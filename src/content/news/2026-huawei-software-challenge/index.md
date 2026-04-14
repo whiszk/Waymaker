@@ -1,12 +1,9 @@
 ---
 title: "重大er，华为的这场全球赛事在呼唤你！"
 date: 2026-03-22
-description: "* 机考绿卡：竞赛人才 quick pass 通道，可免机考。"
+description: "华为2026软件精英挑战赛开赛"
 cover: "./wechat-2026-04-13-ac065e.jpg"
 ---
-# 重大er，华为的这场全球赛事在呼唤你！
-
-* 机考绿卡：竞赛人才 quick pass 通道，可免机考。
 
 ## 活动内容
 

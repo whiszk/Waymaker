@@ -1,10 +1,7 @@
 ---
 interface FileItem {
     title: string;
-    date?: string;
     href: string;
-    tag?: string;
-    actionLabel?: string;
 }
 
 interface Props {
@@ -15,6 +12,18 @@ interface Props {
 }
 
 const { title = "资料下载", description, helperText, items } = Astro.props;
+
+const getFileExtension = (href: string) => {
+    const normalizedHref = href.split("?")[0].split("#")[0];
+    const fileName = normalizedHref.split("/").pop() ?? "";
+    const dotIndex = fileName.lastIndexOf(".");
+
+    if (dotIndex <= 0 || dotIndex === fileName.length - 1) {
+        return "";
+    }
+
+    return fileName.slice(dotIndex).toLowerCase();
+};
 ---
 
 <section class="bg-white rounded-xl border border-[#D5EEEE] p-6 shadow-sm">
@@ -32,40 +41,25 @@ const { title = "资料下载", description, helperText, items } = Astro.props;
         )
     }
 
-    <div class="mt-5 space-y-3">
+    <div class="mt-4 divide-y divide-[#E2E8F0]">
         {
             items.map((item) => {
-                const actionLabel = item.actionLabel ?? "下载";
+                const extension = getFileExtension(item.href);
 
                 return (
                     <a
                         href={item.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        class="block rounded-lg border border-[#E2E8F0] bg-[#F8FAFC] px-4 py-4 group hover:border-[#05C9C9] hover:bg-white transition-colors"
+                        download
+                        class="flex items-center py-3 text-base font-semibold text-[#022F66] transition-colors hover:text-[#03A8A8]"
                     >
-                        <div class="flex items-center justify-between gap-4">
-                            <div class="min-w-0">
-                                {item.tag && (
-                                    <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-bold bg-[#E6FAFA] text-[#028A8A] mb-2">
-                                        {item.tag}
-                                    </span>
-                                )}
-                                <p class="text-base font-semibold text-[#0F172A] group-hover:text-[#022F66] transition-colors line-clamp-2">
-                                    {item.title}
-                                </p>
-                            </div>
-                            <div class="flex items-center gap-3 shrink-0">
-                                {item.date && (
-                                    <time class="text-sm text-[#64748B]">
-                                        更新 {item.date}
-                                    </time>
-                                )}
-                                <span class="inline-flex items-center px-3 py-1 rounded-md bg-[#05C9C9] text-white text-sm font-semibold">
-                                    {actionLabel}
+                        <span class="truncate">
+                            {item.title}
+                            {extension && (
+                                <span class="ml-1 text-sm font-medium text-[#64748B]">
+                                    {extension}
                                 </span>
-                            </div>
-                        </div>
+                            )}
+                        </span>
                     </a>
                 );
             })
