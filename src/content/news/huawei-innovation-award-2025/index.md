@@ -1,7 +1,7 @@
 ---
 title: 智能基座CQU-Waymaker队获得2025华为开发者大赛中国区学生赛道创新奖
 date: 2025-12-27
-cover: /certificate.jpg
+cover: "./certificate.jpg"
 description: 我校Waymaker智能基座队在2025华为开发者大赛中国区学生赛道荣获创新奖，项目展现了突出的创新思维和技术实力。
 ---
 

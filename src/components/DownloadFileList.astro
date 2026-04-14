@@ -1,0 +1,74 @@
+---
+interface FileItem {
+    title: string;
+    date?: string;
+    href: string;
+    tag?: string;
+    actionLabel?: string;
+}
+
+interface Props {
+    title?: string;
+    description?: string;
+    helperText?: string;
+    items: FileItem[];
+}
+
+const { title = "资料下载", description, helperText, items } = Astro.props;
+---
+
+<section class="bg-white rounded-xl border border-[#D5EEEE] p-6 shadow-sm">
+    <h2 class="text-2xl font-bold text-[#022F66]">{title}</h2>
+    {
+        description && (
+            <p class="mt-2 text-[#475569] text-sm leading-6">{description}</p>
+        )
+    }
+    {
+        helperText && (
+            <p class="mt-4 px-3 py-2 rounded-lg bg-[#E6FAFA] text-[#028A8A] text-sm font-semibold">
+                {helperText}
+            </p>
+        )
+    }
+
+    <div class="mt-5 space-y-3">
+        {
+            items.map((item) => {
+                const actionLabel = item.actionLabel ?? "下载";
+
+                return (
+                    <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        class="block rounded-lg border border-[#E2E8F0] bg-[#F8FAFC] px-4 py-4 group hover:border-[#05C9C9] hover:bg-white transition-colors"
+                    >
+                        <div class="flex items-center justify-between gap-4">
+                            <div class="min-w-0">
+                                {item.tag && (
+                                    <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-bold bg-[#E6FAFA] text-[#028A8A] mb-2">
+                                        {item.tag}
+                                    </span>
+                                )}
+                                <p class="text-base font-semibold text-[#0F172A] group-hover:text-[#022F66] transition-colors line-clamp-2">
+                                    {item.title}
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-3 shrink-0">
+                                {item.date && (
+                                    <time class="text-sm text-[#64748B]">
+                                        更新 {item.date}
+                                    </time>
+                                )}
+                                <span class="inline-flex items-center px-3 py-1 rounded-md bg-[#05C9C9] text-white text-sm font-semibold">
+                                    {actionLabel}
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                );
+            })
+        }
+    </div>
+</section>

@@ -1,11 +1,14 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { getCollection, render } from "astro:content";
+import { assertUniqueBlogSlugs, getBlogSlug } from "../../utils/blog";
 
 export async function getStaticPaths() {
   const blogs = await getCollection("blogs");
+  assertUniqueBlogSlugs(blogs);
+
   return blogs.map((blog) => ({
-    params: { id: blog.id },
+    params: { id: getBlogSlug(blog) },
     props: { blog },
   }));
 }
@@ -15,12 +18,12 @@ const { Content } = await render(blog);
 ---
 
 <Layout>
-  <div class="min-h-screen bg-white py-12 px-4 sm:px-6 lg:px-8">
-    <article class="max-w-3xl mx-auto prose prose-indigo lg:prose-lg">
-      <div class="mb-8 not-prose">
+  <div class="min-h-screen bg-gray-50 py-12 px-8">
+    <article class="max-w-5xl mx-auto">
+      <div class="mb-10 border-b pb-6">
         <a
           href="/blogs"
-          class="text-indigo-600 hover:text-indigo-500 font-medium mb-6 inline-block"
+          class="text-[#022F66] hover:text-[#011D3F] font-medium mb-6 inline-block"
           >← 返回博客列表</a
         >
         <h1 class="text-4xl font-extrabold text-gray-900 mb-4">
@@ -38,15 +41,23 @@ const { Content } = await render(blog);
           <img
             src={blog.data.cover}
             alt="Cover image"
-            class="w-full h-auto rounded-xl shadow-sm mb-10 object-cover max-h-[400px]"
+            class="w-full h-auto rounded-xl shadow-sm mb-8 object-cover max-h-[420px]"
           />
         )
       }
 
-      <div
-        class="prose-img:rounded-xl prose-img:shadow-md prose-a:text-indigo-600"
-      >
-        <Content />
+      <div class="bg-white rounded-xl border border-[#D5EEEE] p-8 shadow-sm">
+        <div
+          class="prose prose-slate prose-lg max-w-none prose-img:rounded-xl prose-img:shadow-md prose-a:text-[#022F66]"
+        >
+          <Content />
+        </div>
+      </div>
+
+      <div class="mt-12">
+        <a href="/" class="text-[#022F66] hover:text-[#011D3F] font-medium"
+          >← 返回首页</a
+        >
       </div>
     </article>
   </div>

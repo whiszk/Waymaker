@@ -1,0 +1,490 @@
+{
+  "version": "2.10",
+  "children": [
+    {
+      "type": "frame",
+      "id": "9qvAP",
+      "x": 0,
+      "y": 0,
+      "name": "Recruitment Page",
+      "width": 1440,
+      "height": 1024,
+      "fill": "#F3FAFA",
+      "layout": "vertical",
+      "gap": 28,
+      "padding": 48,
+      "children": [
+        {
+          "type": "frame",
+          "id": "M3Tzi",
+          "name": "heroPanel",
+          "width": "fill_container",
+          "height": "fit_content(1010)",
+          "fill": "#FFFFFF",
+          "cornerRadius": 16,
+          "stroke": {
+            "thickness": 1,
+            "fill": "#D5EEEE"
+          },
+          "layout": "none",
+          "children": [
+            {
+              "type": "text",
+              "id": "9pVjS",
+              "x": 32,
+              "y": 32,
+              "name": "mainTitle",
+              "fill": "#022F66",
+              "textGrowth": "fixed-width",
+              "width": 240,
+              "content": "招新专区",
+              "fontFamily": "Inter",
+              "fontSize": 54,
+              "fontWeight": "800"
+            },
+            {
+              "type": "frame",
+              "id": "CD2eK",
+              "x": 32,
+              "y": 128,
+              "name": "accentBar",
+              "width": 120,
+              "height": 6,
+              "fill": "#05C9C9",
+              "cornerRadius": 999
+            },
+            {
+              "type": "text",
+              "id": "9Isx8",
+              "x": 32,
+              "y": 152,
+              "name": "introText",
+              "fill": "#334155",
+              "content": "Waymaker 智能基座社团面向全校同学开放，欢迎加入我们参与技术分享、项目实践与赛事创新。",
+              "fontFamily": "Inter",
+              "fontSize": 22,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "XX6ED",
+              "x": 32,
+              "y": 202,
+              "name": "contentRow",
+              "width": "fill_container(1280)",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "fsC4Y",
+                  "name": "qrCard",
+                  "width": 622,
+                  "height": 567,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 12,
+                  "layout": "vertical",
+                  "gap": 14,
+                  "padding": 24,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "maIfW",
+                      "name": "qrTitle",
+                      "fill": "#022F66",
+                      "content": "社团官Q",
+                      "fontFamily": "Inter",
+                      "fontSize": 30,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "K7pRB",
+                      "name": "qrDesc",
+                      "fill": "#475569",
+                      "content": "扫码进入纳新咨询群，获取最新活动和答疑通知。",
+                      "fontFamily": "Inter",
+                      "fontSize": 18,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "rectangle",
+                      "id": "nmmLe",
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "../public/QR code.jpg",
+                        "mode": "fill"
+                      },
+                      "width": 319,
+                      "height": 341
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "JQBOZ",
+                  "name": "rightColumn",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 24,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "usvlR",
+                      "name": "filesCard",
+                      "width": "fill_container",
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 12,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#D5EEEE"
+                      },
+                      "layout": "vertical",
+                      "gap": 16,
+                      "padding": 24,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Mlxsg",
+                          "name": "filesTitle",
+                          "fill": "#022F66",
+                          "content": "资料下载",
+                          "fontFamily": "Inter",
+                          "fontSize": 30,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "MkO5U",
+                          "name": "filesDesc",
+                          "fill": "#475569",
+                          "content": "后续招新手册、通知附件都会统一放在这里。",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "czZid",
+                          "name": "filesHelper",
+                          "width": "fill_container",
+                          "fill": "#E6FAFA",
+                          "cornerRadius": 8,
+                          "padding": [
+                            10,
+                            12
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "uw1iO",
+                              "fill": "#028A8A",
+                              "content": "新增文件时，沿用同一条目结构：标签 + 版本 + 标题 + 更新时间 + 操作。",
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "E9IJ6",
+                          "name": "filesList",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 14,
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "CHX4E",
+                              "name": "fileItem1",
+                              "width": "fill_container",
+                              "fill": "#F7FAFC",
+                              "cornerRadius": 12,
+                              "stroke": {
+                                "thickness": 1,
+                                "fill": "#DCEFF2"
+                              },
+                              "layout": "vertical",
+                              "gap": 10,
+                              "padding": 16,
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "9Mse4",
+                                  "name": "rowOne",
+                                  "width": "fill_container",
+                                  "justifyContent": "space_between",
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "frame",
+                                      "id": "bmJVl",
+                                      "fill": "#DFF7F7",
+                                      "cornerRadius": 999,
+                                      "padding": [
+                                        4,
+                                        10
+                                      ],
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "id": "EWvM0",
+                                          "fill": "#0B5968",
+                                          "content": "DOCX",
+                                          "fontFamily": "Inter",
+                                          "fontSize": 12,
+                                          "fontWeight": "700"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "wDpfe",
+                                      "fill": "#64748B",
+                                      "content": "更新日期：2026-03-28",
+                                      "fontFamily": "Inter",
+                                      "fontSize": 13,
+                                      "fontWeight": "normal"
+                                    },
+                                    {
+                                      "type": "frame",
+                                      "id": "cXPhc",
+                                      "width": "fit_content(53)",
+                                      "height": "fit_content(19)",
+                                      "gap": 8,
+                                      "alignItems": "center"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "BiS7G",
+                                  "fill": "#0F172A",
+                                  "content": "重庆大学智能基座社团纳新报名表",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 17,
+                                  "fontWeight": "600"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "RyI1o",
+                                  "fill": "#0E7490",
+                                  "content": "立即下载",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 13,
+                                  "fontWeight": "600"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "ooIkC",
+                              "name": "fileItem2",
+                              "width": "fill_container",
+                              "fill": "#F7FAFC",
+                              "cornerRadius": 12,
+                              "stroke": {
+                                "thickness": 1,
+                                "fill": "#DCEFF2"
+                              },
+                              "layout": "vertical",
+                              "gap": 10,
+                              "padding": 16,
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "4qUmG",
+                                  "name": "rowTwo",
+                                  "width": "fill_container",
+                                  "justifyContent": "space_between",
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "type": "frame",
+                                      "id": "rSFCn",
+                                      "fill": "#DFF7F7",
+                                      "cornerRadius": 999,
+                                      "padding": [
+                                        4,
+                                        10
+                                      ],
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "id": "8R4ze",
+                                          "fill": "#0B5968",
+                                          "content": "DOCX",
+                                          "fontFamily": "Inter",
+                                          "fontSize": 12,
+                                          "fontWeight": "700"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "frame",
+                                      "id": "dR2xU",
+                                      "gap": 8,
+                                      "alignItems": "center",
+                                      "children": [
+                                        {
+                                          "type": "frame",
+                                          "id": "LjlJz",
+                                          "fill": "#FFFFFF",
+                                          "cornerRadius": 6,
+                                          "stroke": {
+                                            "thickness": 1,
+                                            "fill": "#D5EEEE"
+                                          },
+                                          "padding": [
+                                            4,
+                                            8
+                                          ],
+                                          "children": [
+                                            {
+                                              "type": "text",
+                                              "id": "38xxQ",
+                                              "fill": "#0E7490",
+                                              "content": "v2026.1",
+                                              "fontFamily": "Inter",
+                                              "fontSize": 12,
+                                              "fontWeight": "600"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "text",
+                                          "id": "TqL8V",
+                                          "fill": "#0E7490",
+                                          "content": "立即下载",
+                                          "fontFamily": "Inter",
+                                          "fontSize": 13,
+                                          "fontWeight": "600"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "d3za4",
+                                  "fill": "#0F172A",
+                                  "content": "智能基座协会26春季纳新说明",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 17,
+                                  "fontWeight": "600"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "cHtbv",
+                                  "fill": "#64748B",
+                                  "content": "更新日期：2026-03-28",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 13,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "QivJF",
+                      "name": "authCard",
+                      "width": "fill_container",
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 12,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#D5EEEE"
+                      },
+                      "layout": "vertical",
+                      "gap": 14,
+                      "padding": 24,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "xuHdY",
+                          "name": "authTitle",
+                          "fill": "#022F66",
+                          "content": "成员认证入口",
+                          "fontFamily": "Inter",
+                          "fontSize": 30,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "ySE79",
+                          "name": "authDesc",
+                          "fill": "#475569",
+                          "content": "统一跳转至鲲鹏与昇腾教育科研平台完成成员认证。",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "UyFLH",
+                          "name": "authButton",
+                          "metadata": {
+                            "type": "link",
+                            "href": "https://edu.hicomputing.huawei.com/AIeducationbase"
+                          },
+                          "fill": "#05C9C9",
+                          "cornerRadius": 10,
+                          "gap": 8,
+                          "padding": [
+                            10,
+                            18
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "r2CTH",
+                              "name": "authButtonLabel",
+                              "fill": "#FFFFFF",
+                              "content": "前往认证平台 ↗",
+                              "fontFamily": "Inter",
+                              "fontSize": 16,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "Mw7rY",
+              "x": 32,
+              "y": 940,
+              "name": "backHome",
+              "fill": "#022F66",
+              "content": "← 返回首页",
+              "fontFamily": "Inter",
+              "fontSize": 18,
+              "fontWeight": "600"
+            },
+            {
+              "type": "ellipse",
+              "id": "vpD7o",
+              "x": 1116,
+              "y": -57,
+              "name": "decorBubble",
+              "fill": "#E6FAFA",
+              "width": 280,
+              "height": 280
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

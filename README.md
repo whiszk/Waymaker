@@ -1,5 +1,4 @@
-## 初始
-### 暂定需求
+## 0 暂定需求
 
 静态展示部分：
 - 社团发展历程
@@ -8,7 +7,7 @@
 - 友情链接
 
 **动态资讯**部分：
-- 新闻推文
+- 新闻、推文
 - **社团系列博客**
 - 赛事通知
 - 实时活动通知
@@ -20,58 +19,113 @@
 社团成员独享：
 - 内部资料（github链接，文章等形式）
 
----
 
-### 框架选型与依赖安装
+## 1 更新规范
+### 博客
+博客统一放在以下结构中：
+
+```txt
+src/content/blogs/<slug>/index.md
+src/content/blogs/<slug>/图片或附件
+```
+
+其中 `<slug>` 统一使用小写英文 + 连字符（kebab-case），例如：
+
+- `first-blog`
+- `opengauss-guide`
+- `ai-agent-tools`
+
+它允许的样子是：
+
+hello
+first-blog
+my-post-2026
+abc123
+
+不允许的样子一般是：
+
+First-Blog      // 有大写
+first_blog      // 有下划线
+first blog      // 有空格
+-first-blog     // 不能开头就是 -
+first-blog-     // 不能结尾就是 -
+
+`index.md` 的 frontmatter 建议包含：
+
+```yaml
+slug: "opengauss-guide"
+title: "openGauss 使用指北"
+date: 2025-11-13
+```
+
+最终文章链接为：
+
+```txt
+/blogs/<slug>
+```
+
+## 2 视觉规范与主题色
+
+### 品牌主色
+
+- 主色（青色）：`#05C9C9`
+- 辅色（深蓝）：`#022F66`
+- 基础色（白色）：`#FFFFFF`
+
+### 延伸色建议
+
+- 主色深色态：`#03A8A8`（按钮 hover、强调边框）
+- 主色浅色态：`#E6FAFA`（浅背景、提示底）
+- 辅色浅色态：`#E9EEF6`（卡片分区、次级背景）
+- 文本主色：`#0F172A`（正文）
+- 文本次色：`#475569`（说明、辅助文案）
+
+### 使用建议
+
+- 页面大标题、关键 CTA：优先使用辅色 `#022F66`
+- 按钮主操作、交互高亮：优先使用主色 `#05C9C9`
+- 背景优先保持高留白，使用白色 + 少量浅色块
+- 同一页面避免再引入新的高饱和主色，确保视觉统一
+
+### 可选 CSS 变量（建议在全局样式中维护）
+
+```css
+:root {
+	--brand-primary: #05c9c9;
+	--brand-primary-strong: #03a8a8;
+	--brand-primary-soft: #e6fafa;
+
+	--brand-secondary: #022f66;
+	--brand-secondary-soft: #e9eef6;
+
+	--brand-white: #ffffff;
+	--text-main: #0f172a;
+	--text-muted: #475569;
+}
+```
+
+> 说明：后续页面（尤其招新、新闻列表、落地页）默认按这套主题色执行。
+
+## 3 成员协作
+
+
+### 框架选型与本地开发
 
 使用 Astro 框架
 - 适合内容展示型网站
 - 对 md 和 json 的内容支持很好，方便创作
 
-如果您也想开发一个 Astro 项目，可以简单参考下面的指令
-
-```bash
-npm create astro@latest
-```
-
-项目的初始化选项随意就好
-
-<img src="public/b906040d97f3482311bb04daea32d59d.png" style="width: 50%;"/>
-
-会用到的命令基本就这两个
+会用到的命令
 
 ```bash
 npm install #安装依赖
-npm run dev #启动进程
+npm run dev #启动本地进程，通过服务器预览效果
 ```
 
-### 从微信公众号链接快速发布新闻
-
-如果你只有推文链接，可以直接用下面命令生成新闻文件：
-
-```bash
-npm run import:wechat -- "https://mp.weixin.qq.com/s/你的推文参数"
-```
-
-可选：指定更易读的目录 slug：
-
-```bash
-npm run import:wechat -- "https://mp.weixin.qq.com/s/你的推文参数" spring-meeting-2026
-```
-
-执行后会自动生成：
-
-- `src/content/news/<slug>/index.md`
-- 自动填充 `title/date/description/cover`
-- 自动抓取正文（如果解析失败，会保留原文链接）
-
----
-
-## 成员协作
 ### 说明
 
 - 目前该网站 github 仓库属于个人，后续可考虑加入 github 的 organization
-- 为了方便协作，我会直接邀请博客、推文、网站迭代的负责人作为仓库的 collaborator，然后直接 push 到 main 分支就行，vercel 会自动抓取
+- 为了方便协作，我会直接邀请博客、推文、网站迭代的负责人作为仓库的 collaborator，然后直接 push 到 main 分支就行，vercel 或者 腾讯的边缘加速平台 会自动抓取
 
 ### 具体操作
 
@@ -95,9 +149,7 @@ git commit -m "更新一篇博客"
 
 或者也可以采用可视化的操作方式，比如 vs code 的 git 页面
 
-<img src="public/8e64e59e16d2bf7353912f8f9a0b2242.png" style="width: 50%;" />
-
-然后同步到云端
+这是命令行的方式
 
 ```bash
 # 第一次推送，需要 -u 绑定默认远程分支

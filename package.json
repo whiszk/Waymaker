@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "waymaker",
   "type": "module",
   "version": "0.0.1",
   "engines": {
@@ -9,16 +9,16 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "import:wechat": "node scripts/import-wechat-news.mjs"
+    "astro": "astro"
   },
   "dependencies": {
     "@splidejs/splide": "^4.1.4",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.2.2",
-    "astro": "^6.0.8",
-    "cheerio": "^1.1.2",
-    "iconv-lite": "^0.6.3",
+    "astro": "^6.1.5",
     "tailwindcss": "^4.2.2"
+  },
+  "overrides": {
+    "vite": "^7.3.2"
   }
 }

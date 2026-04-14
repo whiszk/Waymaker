@@ -1,2 +1,13 @@
 @import "tailwindcss";
+
+/* 全站品牌色变量 */
+:root {
+    --brand-primary: #05c9c9;
+    --brand-primary-strong: #03a8a8;
+    --brand-primary-soft: #e6fafa;
+    --brand-secondary: #022f66;
+    --brand-secondary-strong: #011d3f;
+}
+
+/* 下面这个不能删除 */
 @plugin "@tailwindcss/typography";

@@ -1,95 +1,133 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import DownloadFileList from "../components/DownloadFileList.astro";
+
+const authUrl = "https://edu.hicomputing.huawei.com/AIeducationbase";
 
 const notices = [
-  {
-    title: "重庆大学智能基座社团纳新报名表",
-    date: "2026-03-28",
-    href: "/docs/recruitment-form.docx",
-  },
-  {
-    title: "智能基座协会26春季纳新说明",
-    date: "2026-03-28",
-    href: "/docs/recruitment-guide.docx",
-  },
+    {
+        title: "重庆大学智能基座社团纳新报名表",
+        date: "2026-03-28",
+        tag: "DOCX",
+        actionLabel: "立即下载",
+        href: "/docs/recruitment-form.docx",
+    },
+    {
+        title: "智能基座协会26春季纳新说明",
+        date: "2026-03-28",
+        tag: "DOCX",
+        actionLabel: "立即下载",
+        href: "/docs/recruitment-guide.docx",
+    },
 ];
 ---
 
-<Layout title="Waymaker 纳新公告">
-  <div class="min-h-screen bg-[#f7f4fa]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <aside class="lg:col-span-3">
-          <div class="bg-white/80 rounded-xl border border-purple-100 p-6 shadow-sm">
-            <div class="space-y-4 text-lg">
-              <div>
-                <span class="block px-4 py-2 rounded-lg bg-purple-100 text-purple-800 text-2xl font-bold">
-                  纳新
-                </span>
-                <ul class="mt-3 ml-3 pl-4 border-l border-purple-200 space-y-2">
-                  <li>
-                    <span class="block px-3 py-2 rounded-lg bg-purple-100 text-purple-800 font-semibold">
-                      通知公告
-                    </span>
-                  </li>
-                  <li>
+<Layout title="Waymaker 招新专区">
+    <div class="min-h-screen bg-gray-50 py-12 px-8 flex flex-col">
+        <div class="max-w-5xl mx-auto w-full flex-grow flex flex-col">
+            <div class="mb-10 border-b pb-6">
+                <h1 class="text-4xl font-extrabold text-gray-900">招新专区</h1>
+                <p class="mt-4 text-xl text-gray-500">
+                    Waymaker
+                    智能基座社团面向全校同学长期开放，欢迎加入我们一起做技术分享、项目实践与赛事创新。
+                </p>
+            </div>
+
+            <section
+                class="mb-8 bg-white rounded-xl border border-[#D5EEEE] p-6 shadow-sm"
+            >
+                <div class="text-center">
+                    <h2 class="text-2xl font-bold text-[#022F66]">常用入口</h2>
+                    <p class="mt-2 text-[#475569] text-sm">
+                        将原首页的四个常用入口迁移到招新页，便于一站式跳转。
+                    </p>
+                </div>
+
+                <div class="mt-5 grid grid-cols-4 gap-4">
                     <a
-                      href="/recruitment-qq"
-                      class="block px-3 py-2 rounded-lg text-gray-500 hover:text-purple-700 hover:bg-purple-50 transition-colors"
+                        href="/news"
+                        class="inline-flex items-center justify-center gap-2 px-4 py-3 bg-white text-[#022F66] border border-[#022F66] rounded-lg hover:bg-[#E6FAFA] transition-colors font-semibold"
                     >
-                      社团官Q
+                        查看全部动态 <span>→</span>
                     </a>
-                  </li>
-                </ul>
-              </div>
+                    <a
+                        href="/blogs"
+                        class="inline-flex items-center justify-center gap-2 px-4 py-3 bg-white text-[#022F66] border border-[#022F66] rounded-lg hover:bg-[#E6FAFA] transition-colors font-semibold"
+                    >
+                        查看全部博客 <span>→</span>
+                    </a>
+                    <a
+                        href="/members"
+                        class="inline-flex items-center justify-center gap-2 px-4 py-3 bg-white text-[#022F66] border border-[#022F66] rounded-lg hover:bg-[#E6FAFA] transition-colors font-semibold"
+                    >
+                        成员风采 <span>→</span>
+                    </a>
+                    <a
+                        href="/recruitment"
+                        aria-current="page"
+                        class="inline-flex items-center justify-center gap-2 px-4 py-3 bg-[#05C9C9] text-white rounded-lg hover:bg-[#03A8A8] transition-colors font-semibold"
+                    >
+                        加入我们 <span>→</span>
+                    </a>
+                </div>
+            </section>
 
-              <div>
-                <a
-                  href="/recruitment-auth"
-                  class="block px-4 py-2 rounded-lg text-2xl font-bold text-gray-500 hover:text-purple-700 hover:bg-purple-50 transition-colors"
+            <div class="grid grid-cols-2 gap-8 flex-grow content-start">
+                <section
+                    class="bg-white rounded-xl border border-[#D5EEEE] p-6 shadow-sm"
                 >
-                  成员认证
-                </a>
-              </div>
-            </div>
-          </div>
-        </aside>
+                    <h2 class="text-2xl font-bold text-[#022F66]">社团官Q</h2>
+                    <p class="mt-2 text-[#475569] text-sm leading-6">
+                        扫码进入纳新咨询群，获取最新活动和答疑通知。
+                    </p>
 
-        <section class="lg:col-span-9 bg-white rounded-xl border border-purple-100 p-8 shadow-sm relative overflow-hidden">
-          <div class="absolute right-0 top-0 w-64 h-64 bg-purple-50 rounded-full -translate-y-20 translate-x-20"></div>
-          <div class="relative">
-            <h1 class="text-5xl font-extrabold text-purple-700 tracking-wide">通知公告</h1>
-            <div class="mt-3 h-1 w-28 bg-purple-600 rounded"></div>
-
-            <div class="mt-12 divide-y divide-gray-200">
-              {
-                notices.map((item) => (
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    class="flex items-center justify-between gap-4 py-7 group"
-                  >
-                    <div class="flex items-start gap-3 min-w-0">
-                      <span class="text-2xl leading-none text-gray-800 mt-1">•</span>
-                      <p class="text-xl font-semibold text-gray-900 group-hover:text-purple-700 transition-colors line-clamp-2">
-                        {item.title}
-                      </p>
+                    <div class="mt-6 flex justify-center">
+                        <img
+                            src="/QR%20code.jpg"
+                            alt="社团纳新Q群二维码"
+                            class="w-full max-w-md rounded-lg border border-[#D5EEEE] shadow"
+                        />
                     </div>
-                    <time class="text-3xl text-gray-500 font-light tracking-wide whitespace-nowrap">
-                      {item.date}
-                    </time>
-                  </a>
-                ))
-              }
+                </section>
+
+                <div class="space-y-6">
+                    <DownloadFileList
+                        title="资料下载"
+                        description="后续招新手册、通知附件都会统一放在这里。"
+                        helperText="新增文件时，沿用同一条目结构：标签 + 标题 + 更新时间 + 操作。"
+                        items={notices}
+                    />
+
+                    <section
+                        class="bg-white rounded-xl border border-[#D5EEEE] p-6 shadow-sm"
+                    >
+                        <h2 class="text-2xl font-bold text-[#022F66]">
+                            成员认证入口
+                        </h2>
+                        <p class="mt-2 text-[#475569] text-sm leading-6">
+                            统一跳转至鲲鹏与昇腾教育科研平台完成成员认证。
+                        </p>
+                        <div class="mt-5">
+                            <a
+                                href={authUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#05C9C9] text-white font-semibold hover:bg-[#03A8A8] transition-colors"
+                            >
+                                前往认证平台 <span>↗</span>
+                            </a>
+                        </div>
+                    </section>
+                </div>
             </div>
 
-            <div class="mt-10">
-              <a href="/" class="text-purple-700 hover:text-purple-900 font-semibold">← 返回首页</a>
+            <div class="mt-12">
+                <a
+                    href="/"
+                    class="text-[#022F66] hover:text-[#011D3F] font-medium text-lg"
+                    >← 返回首页</a
+                >
             </div>
-          </div>
-        </section>
-      </div>
+        </div>
     </div>
-  </div>
 </Layout>

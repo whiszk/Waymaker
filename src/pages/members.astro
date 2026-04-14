@@ -6,9 +6,9 @@ const members = await getCollection("members");
 ---
 
 <Layout>
-  <div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-4xl mx-auto">
-      <div class="mb-10">
+  <div class="min-h-screen bg-gray-50 py-12 px-8">
+    <div class="max-w-5xl mx-auto w-full">
+      <div class="mb-10 border-b pb-6">
         <h1 class="text-4xl font-extrabold text-gray-900">优秀成员风采</h1>
         <p class="mt-4 text-xl text-gray-500">认识我们最骄傲的核心骨干力量。</p>
       </div>
@@ -17,8 +17,10 @@ const members = await getCollection("members");
         {
           members.map((member) => (
             <article class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-              <h2 class="text-2xl font-bold text-gray-900 mb-2">{member.data.name}</h2>
-              <p class="text-indigo-600 font-medium mb-4">{member.data.role}</p>
+              <h2 class="text-2xl font-bold text-gray-900 mb-2">
+                {member.data.name}
+              </h2>
+              <p class="text-[#022F66] font-medium mb-4">{member.data.role}</p>
               <p class="text-gray-600 leading-7">{member.data.bio}</p>
             </article>
           ))
@@ -26,7 +28,7 @@ const members = await getCollection("members");
       </div>
 
       <div class="mt-12">
-        <a href="/" class="text-indigo-600 hover:text-indigo-500 font-medium"
+        <a href="/" class="text-[#022F66] hover:text-[#011D3F] font-medium"
           >← 返回首页</a
         >
       </div>

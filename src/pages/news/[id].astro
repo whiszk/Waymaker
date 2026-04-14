@@ -12,33 +12,20 @@ export async function getStaticPaths() {
 
 const { item } = Astro.props;
 const { Content } = await render(item);
+const coverSrc =
+  typeof item.data.cover === "string" ? item.data.cover : item.data.cover?.src;
 ---
 
 <Layout>
-  <div class="min-h-screen bg-white py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-3xl mx-auto mb-8">
-      <a
-        href="/news"
-        class="text-indigo-600 hover:text-indigo-500 font-medium mb-6 inline-block"
-        >← 返回新闻列表</a
-      >
-    </div>
-
-    {
-      item.data.cover && (
-        <div class="max-w-4xl mx-auto mb-10">
-          <img
-            src={item.data.cover}
-            alt="Cover image"
-            class="w-full h-auto md:h-[450px] rounded-2xl shadow-lg object-cover"
-          />
-        </div>
-      )
-    }
-
-    <article class="max-w-3xl mx-auto prose prose-blue lg:prose-lg">
-      <div class="mb-8 not-prose text-center border-b pb-8">
-        <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">
+  <div class="min-h-screen bg-gray-50 py-12 px-8">
+    <article class="max-w-5xl mx-auto">
+      <div class="mb-10 border-b pb-6">
+        <a
+          href="/news"
+          class="text-[#022F66] hover:text-[#011D3F] font-medium mb-6 inline-block"
+          >← 返回新闻列表</a
+        >
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-4">
           {item.data.title}
         </h1>
         <div class="text-gray-500 text-sm">
@@ -46,10 +33,32 @@ const { Content } = await render(item);
         </div>
       </div>
 
-      <div
-        class="prose-img:rounded-xl prose-img:shadow-md prose-headings:text-gray-900 prose-a:text-indigo-600"
-      >
-        <Content />
+      {
+        coverSrc && (
+          <div class="mb-8">
+            <img
+              src={coverSrc}
+              alt="Cover image"
+              class="w-full h-[450px] rounded-xl shadow-sm object-cover"
+            />
+          </div>
+        )
+      }
+
+      <div class="bg-white rounded-xl border border-[#D5EEEE] p-8 shadow-sm">
+        <div
+          class="prose prose-slate prose-lg max-w-none prose-img:rounded-xl prose-img:shadow-md prose-headings:text-gray-900 prose-a:text-[#022F66]"
+        >
+          <Content />
+        </div>
+      </div>
+
+      <div class="mt-12">
+        <a
+          href="/"
+          class="text-[#022F66] hover:text-[#011D3F] font-medium text-lg"
+          >← 返回首页</a
+        >
       </div>
     </article>
   </div>

@@ -1,7 +1,7 @@
 ---
-title: 3月8日智能基座社团展开2026春季学期第一次项目组会
+title: 智能基座社团展开2026春季学期第一次项目组会
 date: 2026-03-08
-cover: /meeting photo.png
+cover: "./meeting photo.png"
 description: 智能基座社团于2026年3月8日举办春季学期第一次项目组会，全体成员齐聚一堂，共同规划新学期的工作方向和目标。
 ---
 
